@@ -1,0 +1,3 @@
+﻿I had this error:
+RSACryptoServiceProvider is not supported on: 'windows'
+therefore sunamo.crypt

@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Version>24.1.8.1</Version>
+	  <Description>Crypting with various crypting algorithms (Rijndael, Triple DES etc.)</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="SunamoBts" Version="24.1.5.1" />
+    <PackageReference Include="SunamoFileIO" Version="24.1.7.1" />
+    <PackageReference Include="SunamoI18N" Version="24.1.9.1" />
+    <PackageReference Include="SunamoInterfaces" Version="24.1.7.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="_\**" />
+    <EmbeddedResource Remove="_\**" />
+    <None Remove="_\**" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>$(DefineConstants);ASYNC</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>$(DefineConstants);ASYNC</DefineConstants>
+  </PropertyGroup>
+</Project>
