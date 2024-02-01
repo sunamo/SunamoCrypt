@@ -1,5 +1,5 @@
 namespace SunamoCrypt;
-
+using SunamoUnderscore;
 
 public partial class CryptHelper
 {
@@ -19,7 +19,7 @@ public partial class CryptHelper
         switch (provider)
         {
             case Provider.DES:
-                ThrowEx.Custom("Symetrick\u00E9 \u0161ifrov\u00E1n\u00ED DES nen\u00ED podporov\u00E1no.");
+                throw new Exception("Symetrick\u00E9 \u0161ifrov\u00E1n\u00ED DES nen\u00ED podporov\u00E1no.");
                 break;
             case Provider.RC2:
                 //crypt = new CryptHelper.RC2();

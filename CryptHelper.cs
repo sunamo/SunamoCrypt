@@ -3,7 +3,7 @@ namespace SunamoCrypt;
 using static CryptHelper;
 
 /// <summary>
-/// K převodu z a na bajty BTS.ConvertFromBytesToUtf8 a BTS.ConvertFromUtf8ToBytes
+/// K převodu z a na bajty BTS2.ConvertFromBytesToUtf8 a BTS2.ConvertFromUtf8ToBytes
 /// 
 /// Wrapper aroung CryptHelper2 class - 
 /// Instead of CryptHelper2 use string
@@ -44,14 +44,14 @@ public partial class CryptHelper : ICryptHelper
 
         public string Decrypt(string v)
         {
-            return BTS.ConvertFromBytesToUtf8(CryptHelper2.DecryptTripleDES(BTS.ConvertFromUtf8ToBytes(v), _pp, _s, _iv));
+            return BTS2.ConvertFromBytesToUtf8(CryptHelper2.DecryptTripleDES(BTS2.ConvertFromUtf8ToBytes(v), _pp, _s, _iv));
         }
 
 
 
         public string Encrypt(string v)
         {
-            return BTS.ConvertFromBytesToUtf8(CryptHelper2.EncryptTripleDES(BTS.ConvertFromUtf8ToBytes(v), _pp, _s, _iv));
+            return BTS2.ConvertFromBytesToUtf8(CryptHelper2.EncryptTripleDES(BTS2.ConvertFromUtf8ToBytes(v), _pp, _s, _iv));
         }
     }
 
@@ -79,12 +79,12 @@ public partial class CryptHelper : ICryptHelper
 
         public string Decrypt(string v)
         {
-            return BTS.ConvertFromBytesToUtf8(CryptHelper2.DecryptRC2(BTS.ConvertFromUtf8ToBytes(v), pp, s, iv));
+            return BTS2.ConvertFromBytesToUtf8(CryptHelper2.DecryptRC2(BTS2.ConvertFromUtf8ToBytes(v), pp, s, iv));
         }
 
         public string Encrypt(string v)
         {
-            return BTS.ConvertFromBytesToUtf8(CryptHelper2.EncryptRC2(BTS.ConvertFromUtf8ToBytes(v), pp, s, iv));
+            return BTS2.ConvertFromBytesToUtf8(CryptHelper2.EncryptRC2(BTS2.ConvertFromUtf8ToBytes(v), pp, s, iv));
         }
     }
 

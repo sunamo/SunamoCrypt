@@ -74,7 +74,7 @@ public partial class CryptHelper2
 #if ASYNC
     await
 #endif
- TF.ReadAllText(xmlSouborKlíče));
+ File.ReadAllTextAsync(xmlSouborKlíče));
         //int nt = rsa.ExportParameters(true).Modulus.Count;
         int lastBlockLength = plainTextBytes.Count % RSA_BLOCKSIZE;
         decimal bc = plainTextBytes.Count / RSA_BLOCKSIZE;
@@ -133,6 +133,7 @@ public partial class CryptHelper2
     }
 
     static Type type = typeof(CryptHelper2);
+    public static string xEncryptedTextIsAnInvalidLength = "EncryptedTextIsAnInvalidLength";
 
     // TODO: Umožnit export do key containery a v případě potřeby to z něho vytáhnout.
     public static
@@ -149,11 +150,11 @@ public partial class CryptHelper2
 #if ASYNC
     await
 #endif
- TF.ReadAllText(xmlSouborKlíče));
+ File.ReadAllTextAsync(xmlSouborKlíče));
         //bool b = rsa.PublicOnly;
         if ((cipherTextBytes.Count % RSA_BLOCKSIZE) != 0)
         {
-            ThrowEx.Custom(sess.i18n(XlfKeys.EncryptedTextIsAnInvalidLength));
+            throw new Exception(xEncryptedTextIsAnInvalidLength);
         }
 
         //Calculate the number of blocks we will have to work on

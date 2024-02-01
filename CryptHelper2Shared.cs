@@ -43,7 +43,7 @@ public partial class CryptHelper2
     }
     public static string EncryptTripleDES(string p)
     {
-        return BTS.ConvertFromBytesToUtf8(EncryptTripleDES(BTS.ConvertFromUtf8ToBytes(p)));
+        return BTS2.ConvertFromBytesToUtf8(EncryptTripleDES(BTS2.ConvertFromUtf8ToBytes(p)));
     }
 
     public static List<byte> DecryptTripleDES(List<byte> cipherTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
@@ -75,7 +75,7 @@ public partial class CryptHelper2
     }
     public static string DecryptTripleDES(string p)
     {
-        return BTS.ConvertFromBytesToUtf8(DecryptTripleDES(BTS.ConvertFromUtf8ToBytes(p)));
+        return BTS2.ConvertFromBytesToUtf8(DecryptTripleDES(BTS2.ConvertFromUtf8ToBytes(p)));
     }
 
     public static List<byte> DecryptRijndael(List<byte> plainTextBytes)
@@ -89,7 +89,7 @@ public partial class CryptHelper2
     /// <param name = "salt"></param>
     public static String DecryptRijndael(string plainText, List<byte> salt)
     {
-        return BTS.ConvertFromBytesToUtf8(DecryptRijndael(BTS.ClearEndingsBytes(BTS.ConvertFromUtf8ToBytes(plainText)), CryptHelper2._pp, salt, CryptHelper2._ivRijn));
+        return BTS2.ConvertFromBytesToUtf8(DecryptRijndael(BTS2.ClearEndingsBytes(BTS2.ConvertFromUtf8ToBytes(plainText)), CryptHelper2._pp, salt, CryptHelper2._ivRijn));
     }
     public static List<byte> DecryptRijndael(List<byte> plainTextBytes, List<byte> salt)
     {
@@ -97,10 +97,10 @@ public partial class CryptHelper2
     }
     public static string DecryptRijndael(string p)
     {
-        return BTS.ConvertFromBytesToUtf8(DecryptRijndael(BTS.ConvertFromUtf8ToBytes(p)));
+        return BTS2.ConvertFromBytesToUtf8(DecryptRijndael(BTS2.ConvertFromUtf8ToBytes(p)));
     }
 
-    
+
 
     public static List<byte> EncryptRijndael(List<byte> plainTextBytes, List<byte> salt)
     {
@@ -112,10 +112,10 @@ public partial class CryptHelper2
     }
     public static string EncryptRijndael(string p)
     {
-        return BTS.ConvertFromBytesToUtf8(EncryptRijndael(BTS.ConvertFromUtf8ToBytes(p)));
+        return BTS2.ConvertFromBytesToUtf8(EncryptRijndael(BTS2.ConvertFromUtf8ToBytes(p)));
     }
 
-    
+
 
     public static List<byte> EncryptRC2(List<byte> plainTextBytes)
     {
@@ -123,7 +123,7 @@ public partial class CryptHelper2
     }
     public static string EncryptRC2(string p)
     {
-        return BTS.ConvertFromBytesToUtf8(EncryptRC2(BTS.ConvertFromUtf8ToBytes(p)));
+        return BTS2.ConvertFromBytesToUtf8(EncryptRC2(BTS2.ConvertFromUtf8ToBytes(p)));
     }
     public static List<byte> EncryptRC2(List<byte> plainTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
@@ -158,7 +158,7 @@ public partial class CryptHelper2
     }
     public static string DecryptRC2(string p)
     {
-        return BTS.ConvertFromBytesToUtf8(DecryptRC2(BTS.ConvertFromUtf8ToBytes(p)));
+        return BTS2.ConvertFromBytesToUtf8(DecryptRC2(BTS2.ConvertFromUtf8ToBytes(p)));
     }
     public static List<byte> DecryptRC2(List<byte> cipherTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
