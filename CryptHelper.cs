@@ -1,7 +1,4 @@
 namespace SunamoCrypt;
-
-using static CryptHelper;
-
 /// <summary>
 /// K převodu z a na bajty BTS2.ConvertFromBytesToUtf8 a BTS2.ConvertFromUtf8ToBytes
 /// 

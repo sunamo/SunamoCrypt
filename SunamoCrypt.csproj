@@ -3,13 +3,12 @@
     <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <Version>24.2.1.2</Version>
+    <Version>24.2.6.2</Version>
     <Description>Crypting with various crypting algorithms (Rijndael, Triple DES etc.)</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="SunamoExceptions" Version="24.2.1.2" />
-    <PackageReference Include="SunamoInterfaces" Version="24.2.1.2" />
-    <PackageReference Include="SunamoUnderscore" Version="24.2.1.1" />
+    <PackageReference Include="SunamoExceptions" Version="24.2.6.3" />
+    <PackageReference Include="SunamoInterfaces" Version="24.2.6.3" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="_\**" />

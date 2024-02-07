@@ -1,5 +1,4 @@
 namespace SunamoCrypt;
-using SunamoUnderscore;
 
 public partial class CryptHelper
 {
@@ -51,8 +50,8 @@ public partial class CryptHelper
         static RijndaelBytes()
         {
             Instance = new RijndaelBytes();
-            _.RijndaelBytesEncrypt = Instance.Encrypt;
-            _.RijndaelBytesDecrypt = Instance.Decrypt;
+            //_.RijndaelBytesEncrypt = Instance.Encrypt;
+            //_.RijndaelBytesDecrypt = Instance.Decrypt;
         }
 
         public static RijndaelBytes Instance = null;
