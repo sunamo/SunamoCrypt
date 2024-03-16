@@ -7,8 +7,6 @@
     <Description>Crypting with various crypting algorithms (Rijndael, Triple DES etc.)</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="SunamoExceptions" Version="24.2.6.3" />
-    <PackageReference Include="SunamoInterfaces" Version="24.2.6.3" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="_\**" />
