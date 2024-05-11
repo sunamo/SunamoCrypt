@@ -3,10 +3,10 @@ global using System;
 global using System.Linq;
 global using System.Text;
 global using System.Collections;
-global using SunamoExceptions.OnlyInSE;
+
 global using System.IO;
 global using System.Threading.Tasks;
-global using SunamoInterfaces.Interfaces;
+
 global using System.Security.Cryptography;
 global using System.Xml;
 global using SunamoCrypt.Enums;
