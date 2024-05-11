@@ -1,4 +1,4 @@
-namespace SunamoCrypt.Data;
+namespace SunamoCrypt;
 
 public class CryptData : ICrypt
 {
