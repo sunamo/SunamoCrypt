@@ -9,7 +9,7 @@ global using System.Threading.Tasks;
 
 global using System.Security.Cryptography;
 global using System.Xml;
-global using SunamoCrypt.Enums;
+
 global using System.Collections.Generic;
 global using System.Collections;
 
