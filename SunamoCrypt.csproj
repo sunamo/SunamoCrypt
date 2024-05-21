@@ -3,27 +3,10 @@
     <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <Version>24.2.6.2</Version>
+    <Version>24.5.21.1</Version>
     <Description>Crypting with various crypting algorithms (Rijndael, Triple DES etc.)</Description>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\SunamoInterfaces\Interfaces\ICryptHelper.cs" Link="_linked\SunamoInterfaces\Interfaces\ICryptHelper.cs" />
-    <Compile Include="..\SunamoInterfaces\Interfaces\ICryptString.cs" Link="_linked\SunamoInterfaces\Interfaces\ICryptString.cs" />
-    <Compile Include="..\SunamoInterfaces\Interfaces\ICrypt.cs" Link="_linked\SunamoInterfaces\Interfaces\ICrypt.cs" />
-    <Compile Include="..\SunamoInterfaces\Interfaces\ICryptBytes.cs" Link="_linked\SunamoInterfaces\Interfaces\ICryptBytes.cs" />
-    <Compile Include="..\SunamoExceptions\OnlyInSE\ThrowEx.cs" Link="_linked\SunamoExceptions\OnlyInSE\ThrowEx.cs" />
-    <Compile Include="..\SunamoValues\Consts.cs" Link="_linked\SunamoValues\Consts.cs" />
-    <Compile Include="..\SunamoExceptions\OnlyInSE\Exceptions.cs" Link="_linked\SunamoExceptions\OnlyInSE\Exceptions.cs" />
-    <Compile Include="..\SunamoExceptions\OnlyInSE\TranslateAble.cs" Link="_linked\SunamoExceptions\OnlyInSE\TranslateAble.cs" />
-    <Compile Include="..\SunamoExceptions\_AddedToAllCsproj\SHSunamoExceptions.cs" Link="_linked\SunamoExceptions\_AddedToAllCsproj\SHSunamoExceptions.cs" />
-    <Compile Include="..\SunamoExceptions\_AddedToAllCsproj\CASunamoExceptions.cs" Link="_linked\SunamoExceptions\_AddedToAllCsproj\CASunamoExceptions.cs" />
-    <Compile Include="..\SunamoValues\AllStrings.cs" Link="_linked\SunamoValues\AllStrings.cs" />
-    <Compile Include="..\SunamoValues\AllChars.cs" Link="_linked\SunamoValues\AllChars.cs" />
-    <Compile Include="..\SunamoExceptions\OnlyInSE\Exc.cs" Link="_linked\SunamoExceptions\OnlyInSE\Exc.cs" />
-    <Compile Include="..\SunamoExceptions\OnlyInSE\Types.cs" Link="_linked\SunamoExceptions\OnlyInSE\Types.cs" />
-    <Compile Include="..\SunamoXlfKeys\XlfKeys.cs" Link="_linked\SunamoXlfKeys\XlfKeys.cs" />
-    <Compile Include="..\SunamoInterfaces\Interfaces\ISunamoDictionary.cs" Link="_linked\SunamoInterfaces\Interfaces\ISunamoDictionary.cs" />
-    <Compile Include="..\SunamoExceptions\_AddedToAllCsproj\FSSunamoExceptions.cs" Link="_linked\SunamoExceptions\_AddedToAllCsproj\FSSunamoExceptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="_\**" />
