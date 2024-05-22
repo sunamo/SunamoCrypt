@@ -1,7 +1,7 @@
 namespace SunamoCrypt;
 
 
-public interface ICrypt
+internal interface ICrypt
 {
     List<byte> s { set; get; }
     List<byte> iv { set; get; }

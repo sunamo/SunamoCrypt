@@ -1,7 +1,7 @@
 namespace SunamoCrypt;
 
 
-public interface ICryptString
+internal interface ICryptString
 {
     string Decrypt(string v);
     string Encrypt(string v);
