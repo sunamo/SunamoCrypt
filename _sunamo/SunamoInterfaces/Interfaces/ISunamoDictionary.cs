@@ -1,7 +1,7 @@
 namespace SunamoCrypt;
 
 
-public interface ISunamoDictionary<T, U>
+internal interface ISunamoDictionary<T, U>
 {
     U this[T key] { get; set; }
     ICollection<T> Keys { get; }
