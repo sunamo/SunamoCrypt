@@ -1,3 +1,5 @@
+
+namespace SunamoCrypt;
 using System.Diagnostics;
 using System.Text;
 

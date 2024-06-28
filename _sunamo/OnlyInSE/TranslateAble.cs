@@ -1,3 +1,5 @@
+
+namespace SunamoCrypt;
 public class TranslateAble
 {
     
