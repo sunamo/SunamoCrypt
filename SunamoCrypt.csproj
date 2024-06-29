@@ -6,16 +6,6 @@
     <Version>24.5.25.1</Version>
     <Description>Crypting with various crypting algorithms (Rijndael, Triple DES etc.)</Description>
   </PropertyGroup>
-  <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="_\**" />
-    <EmbeddedResource Remove="_\**" />
-    <None Remove="_\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="_linked\SunamoCollectionsGeneric\" />
-  </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>$(DefineConstants);ASYNC;SunamoCrypt</DefineConstants>
   </PropertyGroup>
