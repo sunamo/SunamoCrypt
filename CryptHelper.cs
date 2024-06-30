@@ -1,18 +1,101 @@
 namespace SunamoCrypt;
-/// <summary>
-/// K převodu z a na bajty BTS2.ConvertFromBytesToUtf8 a BTS2.ConvertFromUtf8ToBytes
-/// 
-/// Wrapper aroung CryptHelper2 class - 
-/// Instead of CryptHelper2 use string
-/// </summary>
-public partial class CryptHelper : ICryptHelper
+
+public class CryptHelper : ICryptHelper
 {
+    private ICryptBytes _crypt = null;
 
+    public static void ApplyCryptData(ICrypt to, ICrypt from)
+    {
+        to.iv = from.iv;
+        to.pp = from.pp;
+        to.s = from.s;
+    }
 
+    static Type type = typeof(CryptHelper);
 
+    public CryptHelper(Provider provider, List<byte> s, List<byte> iv, string pp)
+    {
+        switch (provider)
+        {
+            case Provider.DES:
+                throw new Exception("Symetrick\u00E9 \u0161ifrov\u00E1n\u00ED DES nen\u00ED podporov\u00E1no.");
+                break;
+            case Provider.RC2:
+                //crypt = new CryptHelper.RC2();
+                break;
+            case Provider.Rijndael:
+                _crypt = new CryptHelper.RijndaelBytes();
+                break;
+            case Provider.TripleDES:
+                //crypt = new CryptHelper.TripleDES();
+                break;
+            default:
+                ThrowEx.NotImplementedCase(provider);
+                break;
+        }
+        _crypt.iv = iv;
+        _crypt.pp = pp;
+        _crypt.s = s;
+    }
 
+    /// <summary>
+    /// Used for common apps settings
+    /// Fast
+    /// Rijndael was code name, actually is calling as Advanced Encryption Standard(AES)
+    /// was in 2001 approved by NIST, in 2002 was started to use as federal standard USA
+    /// 
+    /// </summary>
+    public class RijndaelBytes : ICryptBytes, ICrypt
+    {
+        static RijndaelBytes()
+        {
+            Instance = new RijndaelBytes();
+            //_.RijndaelBytesEncrypt = Instance.Encrypt;
+            //_.RijndaelBytesDecrypt = Instance.Decrypt;
+        }
 
+        public static RijndaelBytes Instance = null;
 
+        public List<byte> s
+        {
+            set; get;
+        }
+
+        public List<byte> iv
+        {
+            set; get;
+        }
+
+        public string pp
+        {
+            set; get;
+        }
+
+        public List<byte> Decrypt(List<byte> v)
+        {
+            return CryptHelper2.DecryptRijndael(v, Instance.pp, Instance.s, Instance.iv);
+        }
+
+        public List<byte> Encrypt(List<byte> v)
+        {
+            return CryptHelper2.EncryptRijndael(v, Instance.pp, Instance.s, Instance.iv);
+        }
+    }
+
+    public class Rijndael : ICryptString
+    {
+        public RijndaelBytes rijndaelBytes = new RijndaelBytes();
+
+        public string Decrypt(string v)
+        {
+            return BTS2.ConvertFromBytesToUtf8(rijndaelBytes.Decrypt(BTS2.ConvertFromUtf8ToBytes(v)));
+        }
+
+        public string Encrypt(string v)
+        {
+            return BTS2.ConvertFromBytesToUtf8(rijndaelBytes.Encrypt(BTS2.ConvertFromUtf8ToBytes(v)));
+        }
+    }
 
     /// <summary>
     /// DES use length of key 56 bit which make it vunverable to hard attacks
@@ -118,6 +201,4 @@ public partial class CryptHelper : ICryptHelper
     {
         return _crypt.Encrypt(v);
     }
-
-
 }
