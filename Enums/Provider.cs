@@ -1,4 +1,4 @@
-namespace SunamoCrypt;
+namespace SunamoCrypt.Enums;
 
 /// <summary>
 /// Provideři symetrického šifrování.

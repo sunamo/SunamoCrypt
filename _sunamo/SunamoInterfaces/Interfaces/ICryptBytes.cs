@@ -1,4 +1,4 @@
-namespace SunamoCrypt;
+namespace SunamoCrypt._sunamo.SunamoInterfaces.Interfaces;
 
 
 internal interface ICryptBytes : ICrypt

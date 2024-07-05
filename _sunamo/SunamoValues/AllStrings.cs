@@ -1,5 +1,5 @@
 
-namespace SunamoCrypt;
+namespace SunamoCrypt._sunamo.SunamoValues;
 internal class AllStrings
 {
     internal const string dot = ".";

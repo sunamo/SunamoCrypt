@@ -1,4 +1,4 @@
-namespace SunamoCrypt;
+namespace SunamoCrypt._sunamo.SunamoExceptions.OnlyInSE;
 
 using System.Collections;
 using System.Text;

@@ -1,5 +1,5 @@
 
-namespace SunamoCrypt;
+namespace SunamoCrypt._sunamo.SunamoExceptions.OnlyInSE;
 using System.Diagnostics;
 using System.Text;
 
