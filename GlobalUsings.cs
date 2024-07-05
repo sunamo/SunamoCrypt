@@ -21,3 +21,5 @@ global using SunamoCrypt._public.SunamoInterfaces.Interfaces;
 global using SunamoCrypt._sunamo.SunamoExceptions.OnlyInSE;
 global using SunamoCrypt._sunamo.SunamoExceptions._AddedToAllCsproj;
 global using SunamoCrypt._sunamo.SunamoInterfaces.Interfaces;
+global using System.Diagnostics;
+global using System.Net;

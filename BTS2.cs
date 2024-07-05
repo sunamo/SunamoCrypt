@@ -1,7 +1,4 @@
-
 namespace SunamoCrypt;
-using System;
-using System.Collections.Generic;
 
 
 internal class BTS2
@@ -47,4 +44,3 @@ internal class BTS2
         return bytes;
     }
 }
-

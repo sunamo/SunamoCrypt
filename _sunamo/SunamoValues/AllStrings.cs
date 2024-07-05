@@ -1,4 +1,3 @@
-
 namespace SunamoCrypt._sunamo.SunamoValues;
 internal class AllStrings
 {
