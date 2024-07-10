@@ -11,11 +11,15 @@
     <RepositoryUrl>https://github.com/sunamo/SunamoCrypt.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>$(DefineConstants);ASYNC;SunamoCrypt</DefineConstants>
+    <DefineConstants>$(DefineConstants);ASYNC;SunamoCrypt;SunamoCrypt.csproj</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>$(DefineConstants);ASYNC;SunamoCrypt</DefineConstants>
+    <DefineConstants>$(DefineConstants);ASYNC;SunamoCrypt;SunamoCrypt.csproj</DefineConstants>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="readme.md" Pack="True" PackagePath="." />
+  </ItemGroup>
 </Project>
