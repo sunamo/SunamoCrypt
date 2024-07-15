@@ -1,7 +1,6 @@
 namespace SunamoCrypt;
 
-
-internal class BTS2
+public class BTS2
 {
     
     public static List<byte> ConvertFromUtf8ToBytes(string vstup)
