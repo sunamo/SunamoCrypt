@@ -182,7 +182,7 @@ public class CryptHelper2
     public static List<byte> _ivTrip = null;
     public static List<byte> EncryptTripleDES(List<byte> plainTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
-        string hashAlgorithm = "SHA1";
+        string hashAlgorithm = "A1";
         int keySize = 128;
         int passwordIterations = 2; // Může bý jakékoliv číslo
         PasswordDeriveBytes password = new PasswordDeriveBytes(passPhrase, saltValueBytes.ToArray(), hashAlgorithm, passwordIterations);
@@ -217,7 +217,7 @@ public class CryptHelper2
 
     public static List<byte> DecryptTripleDES(List<byte> cipherTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
-        string hashAlgorithm = "SHA1";
+        string hashAlgorithm = "A1";
         int keySize = 128;
         int passwordIterations = 2; // Může bý jakékoliv číslo
         PasswordDeriveBytes password = new PasswordDeriveBytes(passPhrase, saltValueBytes.ToArray(), hashAlgorithm, passwordIterations);
@@ -296,7 +296,7 @@ public class CryptHelper2
     }
     public static List<byte> EncryptRC2(List<byte> plainTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
-        string hashAlgorithm = "SHA1";
+        string hashAlgorithm = "A1";
         int keySize = 128;
         int passwordIterations = 2; // Může bý jakékoliv číslo
         PasswordDeriveBytes password = new PasswordDeriveBytes(passPhrase, saltValueBytes.ToArray(), hashAlgorithm, passwordIterations);
@@ -331,7 +331,7 @@ public class CryptHelper2
     }
     public static List<byte> DecryptRC2(List<byte> cipherTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
-        string hashAlgorithm = "SHA1";
+        string hashAlgorithm = "A1";
         int keySize = 128;
         int passwordIterations = 2; // Může bý jakékoliv číslo
         PasswordDeriveBytes password = new PasswordDeriveBytes(passPhrase, saltValueBytes.ToArray(), hashAlgorithm, passwordIterations);
@@ -371,7 +371,7 @@ public class CryptHelper2
     /// </param>
     /// <param name = "hashAlgorithm">
     /// Hash algorithm used to generate password. Allowed values are: "MD5" and
-    /// "SHA1". SHA1 hashes are a bit slower, but more secure than MD5 hashes.
+    /// "A1". SHA1 hashes are a bit slower, but more secure than MD5 hashes.
     /// </param>
     /// <param name = "passwordIterations">
     /// Number of iterations used to generate password. One or two iterations
@@ -403,7 +403,7 @@ public class CryptHelper2
             return new List<byte>();
         }
 
-        string hashAlgorithm = "SHA1";
+        string hashAlgorithm = "A1";
         int keySize = 128;
         int passwordIterations = 2; // Může bý jakékoliv číslo
         // zkusit tuhle větev jestli funguje a jestli to nebude mršit
@@ -489,7 +489,7 @@ public class CryptHelper2
     /// </param>
     /// <param name = "hashAlgorithm">
     /// Hash algorithm used to generate password. Allowed values are: "MD5" and
-    /// "SHA1". SHA1 hashes are a bit slower, but more secure than MD5 hashes.
+    /// "A1". SHA1 hashes are a bit slower, but more secure than MD5 hashes.
     /// </param>
     /// <param name = "passwordIterations">
     /// Number of iterations used to generate password. One or two iterations
@@ -509,7 +509,7 @@ public class CryptHelper2
     /// </returns>
     public static List<byte> EncryptRijndael(List<byte> plainTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
-        string hashAlgorithm = "SHA1";
+        string hashAlgorithm = "A1";
         int keySize = 128;
         int passwordIterations = 2; // Může bý jakékoliv číslo
         PasswordDeriveBytes password = new PasswordDeriveBytes(passPhrase, saltValueBytes.ToArray(), hashAlgorithm, passwordIterations);

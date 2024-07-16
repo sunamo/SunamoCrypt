@@ -10,7 +10,7 @@ public class BTS2
 
     public static string ConvertFromBytesToUtf8(List<byte> bajty)
     {
-        //NHSH.RemoveEndingZeroPadding(bajty);
+        //NH.RemoveEndingZeroPadding(bajty);
         return Encoding.UTF8.GetString(bajty.ToArray());
     }
 
