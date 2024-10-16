@@ -8,7 +8,7 @@ global using System.Threading.Tasks;
 global using System.Security.Cryptography;
 global using System.Xml;
 global using SunamoCrypt.Enums;
-global using SunamoCrypt._sunamo.SunamoValues;
+global using SunamoCrypt;
 global using SunamoCrypt._public.SunamoInterfaces.Interfaces;
 global using SunamoCrypt._sunamo.SunamoExceptions;
 global using SunamoCrypt._sunamo.SunamoInterfaces.Interfaces;
