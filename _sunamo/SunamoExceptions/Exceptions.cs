@@ -1,14 +1,14 @@
 namespace SunamoCrypt._sunamo.SunamoExceptions;
 // © www.sunamo.cz. All Rights Reserved.
-public sealed partial class Exceptions
+internal sealed partial class Exceptions
 {
     #region Other
-    public static string CheckBefore(string before)
+    internal static string CheckBefore(string before)
     {
         return string.IsNullOrWhiteSpace(before) ? string.Empty : before + ": ";
     }
 
-    public static Tuple<string, string, string> PlaceOfException(
+    internal static Tuple<string, string, string> PlaceOfException(
 bool fillAlsoFirstTwo = true)
     {
         StackTrace st = new();
@@ -36,7 +36,7 @@ bool fillAlsoFirstTwo = true)
         }
         return new Tuple<string, string, string>(type, methodName, string.Join(Environment.NewLine, l));
     }
-    public static void TypeAndMethodName(string l, out string type, out string methodName)
+    internal static void TypeAndMethodName(string l, out string type, out string methodName)
     {
         var s2 = l.Split("at ")[1].Trim();
         var s = s2.Split("(")[0];
@@ -45,7 +45,7 @@ bool fillAlsoFirstTwo = true)
         p.RemoveAt(p.Count - 1);
         type = string.Join(".", p);
     }
-    public static string CallingMethod(int v = 1)
+    internal static string CallingMethod(int v = 1)
     {
         StackTrace stackTrace = new();
         var methodBase = stackTrace.GetFrame(v)?.GetMethod();
@@ -59,7 +59,7 @@ bool fillAlsoFirstTwo = true)
     #endregion
 
     #region IsNullOrWhitespace
-    public static string? IsNullOrWhitespace(string before, string argName, string argValue, bool notAllowOnlyWhitespace)
+    internal static string? IsNullOrWhitespace(string before, string argName, string argValue, bool notAllowOnlyWhitespace)
     {
         string addParams;
         if (argValue == null)
@@ -81,7 +81,7 @@ bool fillAlsoFirstTwo = true)
     }
     readonly static StringBuilder sbAdditionalInfoInner = new();
     readonly static StringBuilder sbAdditionalInfo = new();
-    public static string AddParams()
+    internal static string AddParams()
     {
         sbAdditionalInfo.Insert(0, Environment.NewLine);
         sbAdditionalInfo.Insert(0, "Outer:");
@@ -94,7 +94,7 @@ bool fillAlsoFirstTwo = true)
         return addParams + addParamsInner;
     }
     #endregion
-    public static string? NotImplementedCase(string before, object notImplementedName)
+    internal static string? NotImplementedCase(string before, object notImplementedName)
     {
         var fr = string.Empty;
         if (notImplementedName != null)
@@ -105,7 +105,7 @@ bool fillAlsoFirstTwo = true)
             else
                 fr += notImplementedName.ToString();
         }
-        return CheckBefore(before) + "Not implemented case" + fr + " . public program error. Please contact developer" +
+        return CheckBefore(before) + "Not implemented case" + fr + " . internal program error. Please contact developer" +
         ".";
     }
 }
