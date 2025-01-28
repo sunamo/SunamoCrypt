@@ -65,21 +65,7 @@ internal partial class ThrowEx
     }
 
     #region For avoid FullNameOfExecutedCode
-    internal static bool ThrowIsNotNull(Exception exception, bool reallyThrow = true)
-    {
-        if (exception != null)
-        {
-            ThrowIsNotNull(exception.Message, reallyThrow);
-            return false;
-        }
-        return true;
-    }
 
-    internal static bool ThrowIsNotNull<A, B>(Func<string, A, B, string?> f, A ex, B message)
-    {
-        string? exc = f(FullNameOfExecutedCode(), ex, message);
-        return ThrowIsNotNull(exc);
-    }
 
     internal static bool ThrowIsNotNull<A>(Func<string, A, string?> f, A ex)
     {
@@ -87,11 +73,6 @@ internal partial class ThrowEx
         return ThrowIsNotNull(exc);
     }
 
-    internal static bool ThrowIsNotNull(Func<string, string?> f)
-    {
-        string? exc = f(FullNameOfExecutedCode());
-        return ThrowIsNotNull(exc);
-    }
     #endregion
     #endregion
 }
