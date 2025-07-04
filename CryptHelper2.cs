@@ -175,7 +175,9 @@ public class CryptHelper2
         //return rsa.Decrypt(cipherTextBytes, false);
     }
 
-    private static CspParameters VratCspParameters(bool p)
+#pragma warning disable
+    private static CspParameters VratCspParameters(bool b)
+#pragma warning restore
     {
         var csp = new CspParameters();
         return csp;
