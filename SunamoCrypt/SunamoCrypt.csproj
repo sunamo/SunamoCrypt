@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Version>25.6.7.1</Version>
@@ -18,7 +18,8 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="readme.md" Pack="True" PackagePath="." />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.3" Pack="True" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.3"
+      Pack="True" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>$(DefineConstants);ASYNC</DefineConstants>
