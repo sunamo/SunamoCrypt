@@ -1,6 +1,7 @@
+namespace SunamoCrypt;
+
 // EN: Variable names have been checked and replaced with self-descriptive names
 // CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
-namespace SunamoCrypt;
 public partial class CryptHelper2
 {
     public static List<byte> DecryptRijndael(List<byte> plainTextBytes)
