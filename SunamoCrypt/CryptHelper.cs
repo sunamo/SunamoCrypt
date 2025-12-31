@@ -2,10 +2,9 @@ namespace SunamoCrypt;
 
 public class CryptHelper : ICryptHelper
 {
-    private static Type type = typeof(CryptHelper);
     private readonly ICryptBytes _crypt;
 
-    public CryptHelper(Provider provider, List<byte> s, List<byte> iv, string pp)
+    public CryptHelper(Provider provider, List<byte> salt, List<byte> initializationVector, string passphrase)
     {
         switch (provider)
         {
@@ -26,27 +25,27 @@ public class CryptHelper : ICryptHelper
                 break;
         }
 
-        _crypt.iv = iv;
-        _crypt.pp = pp;
-        _crypt.s = s;
+        _crypt.InitializationVector = initializationVector;
+        _crypt.Passphrase = passphrase;
+        _crypt.Salt = salt;
     }
 
 
-    public List<byte> Decrypt(List<byte> v)
+    public List<byte> Decrypt(List<byte> data)
     {
-        return _crypt.Decrypt(v);
+        return _crypt.Decrypt(data);
     }
 
-    public List<byte> Encrypt(List<byte> v)
+    public List<byte> Encrypt(List<byte> data)
     {
-        return _crypt.Encrypt(v);
+        return _crypt.Encrypt(data);
     }
 
     public static void ApplyCryptData(ICrypt to, ICrypt from)
     {
-        to.iv = from.iv;
-        to.pp = from.pp;
-        to.s = from.s;
+        to.InitializationVector = from.InitializationVector;
+        to.Passphrase = from.Passphrase;
+        to.Salt = from.Salt;
     }
 
     /// <summary>
@@ -66,20 +65,20 @@ public class CryptHelper : ICryptHelper
             //_.RijndaelBytesDecrypt = Instance.Decrypt;
         }
 
-        public List<byte> s { set; get; }
+        public List<byte> Salt { get; set; }
 
-        public List<byte> iv { set; get; }
+        public List<byte> InitializationVector { get; set; }
 
-        public string pp { set; get; }
+        public string Passphrase { get; set; }
 
-        public List<byte> Decrypt(List<byte> v)
+        public List<byte> Decrypt(List<byte> data)
         {
-            return CryptHelper2.DecryptRijndael(v, Instance.pp, Instance.s, Instance.iv);
+            return CryptHelper2.DecryptRijndael(data, Instance.Passphrase, Instance.Salt, Instance.InitializationVector);
         }
 
-        public List<byte> Encrypt(List<byte> v)
+        public List<byte> Encrypt(List<byte> data)
         {
-            return CryptHelper2.EncryptRijndael(v, Instance.pp, Instance.s, Instance.iv);
+            return CryptHelper2.EncryptRijndael(data, Instance.Passphrase, Instance.Salt, Instance.InitializationVector);
         }
     }
 
@@ -87,14 +86,14 @@ public class CryptHelper : ICryptHelper
     {
         public RijndaelBytes rijndaelBytes = new();
 
-        public string Decrypt(string v)
+        public string Decrypt(string text)
         {
-            return BTS2.ConvertFromBytesToUtf8(rijndaelBytes.Decrypt(BTS2.ConvertFromUtf8ToBytes(v)));
+            return BTS2.ConvertFromBytesToUtf8(rijndaelBytes.Decrypt(BTS2.ConvertFromUtf8ToBytes(text)));
         }
 
-        public string Encrypt(string v)
+        public string Encrypt(string text)
         {
-            return BTS2.ConvertFromBytesToUtf8(rijndaelBytes.Encrypt(BTS2.ConvertFromUtf8ToBytes(v)));
+            return BTS2.ConvertFromBytesToUtf8(rijndaelBytes.Encrypt(BTS2.ConvertFromUtf8ToBytes(text)));
         }
     }
 
@@ -104,36 +103,36 @@ public class CryptHelper : ICryptHelper
     /// </summary>
     public class TripleDES : ICryptString
     {
-        private List<byte> _iv;
-        private string _pp;
-        private List<byte> _s;
+        private List<byte> initializationVector;
+        private string passphrase;
+        private List<byte> salt;
 
-        public List<byte> s
+        public List<byte> Salt
         {
-            set => _s = value;
+            set => salt = value;
         }
 
-        public List<byte> iv
+        public List<byte> InitializationVector
         {
-            set => _iv = value;
+            set => initializationVector = value;
         }
 
-        public string pp
+        public string Passphrase
         {
-            set => _pp = value;
+            set => passphrase = value;
         }
 
-        public string Decrypt(string v)
+        public string Decrypt(string text)
         {
-            return BTS2.ConvertFromBytesToUtf8(CryptHelper2.DecryptTripleDES(BTS2.ConvertFromUtf8ToBytes(v), _pp, _s,
-                _iv));
+            return BTS2.ConvertFromBytesToUtf8(CryptHelper2.DecryptTripleDES(BTS2.ConvertFromUtf8ToBytes(text), passphrase, salt,
+                initializationVector));
         }
 
 
-        public string Encrypt(string v)
+        public string Encrypt(string text)
         {
-            return BTS2.ConvertFromBytesToUtf8(CryptHelper2.EncryptTripleDES(BTS2.ConvertFromUtf8ToBytes(v), _pp, _s,
-                _iv));
+            return BTS2.ConvertFromBytesToUtf8(CryptHelper2.EncryptTripleDES(BTS2.ConvertFromUtf8ToBytes(text), passphrase, salt,
+                initializationVector));
         }
     }
 
@@ -144,20 +143,20 @@ public class CryptHelper : ICryptHelper
     /// </summary>
     public class RC2 : ICrypt
     {
-        public List<byte> s { set; get; }
+        public List<byte> Salt { get; set; }
 
-        public List<byte> iv { set; get; }
+        public List<byte> InitializationVector { get; set; }
 
-        public string pp { set; get; }
+        public string Passphrase { get; set; }
 
-        public string Decrypt(string v)
+        public string Decrypt(string text)
         {
-            return BTS2.ConvertFromBytesToUtf8(CryptHelper2.DecryptRC2(BTS2.ConvertFromUtf8ToBytes(v), pp, s, iv));
+            return BTS2.ConvertFromBytesToUtf8(CryptHelper2.DecryptRC2(BTS2.ConvertFromUtf8ToBytes(text), Passphrase, Salt, InitializationVector));
         }
 
-        public string Encrypt(string v)
+        public string Encrypt(string text)
         {
-            return BTS2.ConvertFromBytesToUtf8(CryptHelper2.EncryptRC2(BTS2.ConvertFromUtf8ToBytes(v), pp, s, iv));
+            return BTS2.ConvertFromBytesToUtf8(CryptHelper2.EncryptRC2(BTS2.ConvertFromUtf8ToBytes(text), Passphrase, Salt, InitializationVector));
         }
     }
 
@@ -170,14 +169,14 @@ public class CryptHelper : ICryptHelper
         public static RijndaelString Instance = new();
         private readonly Rijndael rijndael = new();
 
-        public string Encrypt(string v)
+        public string Encrypt(string text)
         {
-            return rijndael.Encrypt(v);
+            return rijndael.Encrypt(text);
         }
 
-        public string Decrypt(string v)
+        public string Decrypt(string text)
         {
-            return rijndael.Decrypt(v);
+            return rijndael.Decrypt(text);
         }
     }
 }

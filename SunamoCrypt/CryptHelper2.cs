@@ -1,16 +1,13 @@
 namespace SunamoCrypt;
 
-// EN: Variable names have been checked and replaced with self-descriptive names
-// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
 public partial class CryptHelper2
 {
     /// <summary>
     ///     RSA není uspůsobeno pro velké bloky dat, proto max, ale opravdu MAXimální velikost je 64bajtů
     /// </summary>
     private const int RSA_BLOCKSIZE = 64;
-    private const int velikostKliceAsym = 1024;
+    private const int AsymmetricKeySize = 1024;
     private static readonly bool s_OAEP = false;
-    private static Type type = typeof(CryptHelper2);
     public static string xEncryptedTextIsAnInvalidLength = "EncryptedTextIsAnInvalidLength";
     /// <summary>
     ///     Před použitím jednoduchých metod musíš nastavit tuto proměnnou
@@ -20,13 +17,13 @@ public partial class CryptHelper2
     public static List<byte> _ivRijn = null;
     public static List<byte> _ivRc2 = null;
     public static List<byte> _ivTrip = null;
-    public static string EncryptRSA(string inputString, int dwKeySize, string xmlString)
+    public static string EncryptRSA(string text, int dwKeySize, string xmlString)
     {
         // TODO: Add Proper Exception Handlers
         var rsaCryptoServiceProvider = new RSACryptoServiceProvider(dwKeySize);
         rsaCryptoServiceProvider.FromXmlString(xmlString);
         var keySize = dwKeySize / 8;
-        var bytes = Encoding.UTF32.GetBytes(inputString).ToList();
+        var bytes = Encoding.UTF32.GetBytes(text).ToList();
         var maxLength = keySize - 42;
         var dataLength = bytes.Count;
         var iterations = dataLength / maxLength;
@@ -43,17 +40,17 @@ public partial class CryptHelper2
         return stringBuilder.ToString();
     }
 
-    public static string DecryptRSA(string inputString, int dwKeySize, string xmlString)
+    public static string DecryptRSA(string text, int dwKeySize, string xmlString)
     {
         // TODO: Add Proper Exception Handlers
         var rsaCryptoServiceProvider = new RSACryptoServiceProvider(dwKeySize);
         rsaCryptoServiceProvider.FromXmlString(xmlString);
         var base64BlockSize = dwKeySize / 8 % 3 != 0 ? dwKeySize / 8 / 3 * 4 + 4 : dwKeySize / 8 / 3 * 4;
-        var iterations = inputString.Count() / base64BlockSize;
+        var iterations = text.Count() / base64BlockSize;
         var arrayList = new ArrayList();
         for (var i = 0; i < iterations; i++)
         {
-            var encryptedBytes = Convert.FromBase64String(inputString.Substring(base64BlockSize * i, base64BlockSize)).ToList();
+            var encryptedBytes = Convert.FromBase64String(text.Substring(base64BlockSize * i, base64BlockSize)).ToList();
             encryptedBytes.Reverse();
             arrayList.AddRange(rsaCryptoServiceProvider.Decrypt(encryptedBytes.ToArray(), true));
         }
@@ -67,16 +64,16 @@ public partial class CryptHelper2
 #else
     List<byte> 
 #endif
-    EncryptRSA(List<byte> plainTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes, string xmlSouborKlíče, int velikostKliče)
+    EncryptRSA(List<byte> plainTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes, string xmlKeyFile, int keySize)
     {
         //CspParameters csp = new CspParameters();
-        var rsa = new RSACryptoServiceProvider(velikostKliče, VratCspParameters(true));
+        var rsa = new RSACryptoServiceProvider(keySize, VratCspParameters(true));
         rsa.PersistKeyInCsp = false;
         rsa.FromXmlString(
 #if ASYNC
             await
 #endif
-        File.ReadAllTextAsync(xmlSouborKlíče));
+        File.ReadAllTextAsync(xmlKeyFile));
         //int nt = rsa.ExportParameters(true).Modulus.Count;
         var lastBlockLength = plainTextBytes.Count % RSA_BLOCKSIZE;
         decimal bc = plainTextBytes.Count / RSA_BLOCKSIZE;
@@ -111,11 +108,11 @@ public partial class CryptHelper2
     //return rsa.Encrypt(plainTextBytesBytes, false);
     }
 
-    public static RSAParameters GetRSAParametersFromXml(string p)
+    public static RSAParameters GetRSAParametersFromXml(string xmlFilePath)
     {
         var rp = new RSAParameters();
         var xd = new XmlDocument();
-        xd.Load(p);
+        xd.Load(xmlFilePath);
         // Je lepší to číst v Ascii protože to bude po jednom bytu číst
         var kod = Encoding.UTF8;
         rp.D = Convert.FromBase64String(xd.SelectSingleNode("RSAKeyValue/D").InnerText);
@@ -136,15 +133,15 @@ public partial class CryptHelper2
 #else
     List<byte> 
 #endif
-    DecryptRSA(List<byte> cipherTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes, string xmlSouborKlíče, int velikostKliče)
+    DecryptRSA(List<byte> cipherTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes, string xmlKeyFile, int keySize)
     {
-        var rsa = new RSACryptoServiceProvider(velikostKliče, VratCspParameters(false));
+        var rsa = new RSACryptoServiceProvider(keySize, VratCspParameters(false));
         rsa.PersistKeyInCsp = false;
         rsa.FromXmlString(
 #if ASYNC
             await
 #endif
-        File.ReadAllTextAsync(xmlSouborKlíče));
+        File.ReadAllTextAsync(xmlKeyFile));
         //bool b = rsa.PublicOnly;
         if (cipherTextBytes.Count % RSA_BLOCKSIZE != 0)
             throw new Exception(xEncryptedTextIsAnInvalidLength);
@@ -168,7 +165,7 @@ public partial class CryptHelper2
     }
 
 #pragma warning disable
-    private static CspParameters VratCspParameters(bool b)
+    private static CspParameters VratCspParameters(bool isEncrypting)
 #pragma warning restore
     {
         var csp = new CspParameters();
@@ -207,9 +204,9 @@ public partial class CryptHelper2
         return EncryptTripleDES(plainTextBytes, _pp, _s16, _ivTrip);
     }
 
-    public static string EncryptTripleDES(string p)
+    public static string EncryptTripleDES(string text)
     {
-        return BTS2.ConvertFromBytesToUtf8(EncryptTripleDES(BTS2.ConvertFromUtf8ToBytes(p)));
+        return BTS2.ConvertFromBytesToUtf8(EncryptTripleDES(BTS2.ConvertFromUtf8ToBytes(text)));
     }
 
     public static List<byte> DecryptTripleDES(List<byte> cipherTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
@@ -236,13 +233,13 @@ public partial class CryptHelper2
         return plainTextBytes;
     }
 
-    public static List<byte> DecryptTripleDES(List<byte> plainTextBytes)
+    public static List<byte> DecryptTripleDES(List<byte> cipherTextBytes)
     {
-        return DecryptTripleDES(plainTextBytes, _pp, _s16, _ivTrip);
+        return DecryptTripleDES(cipherTextBytes, _pp, _s16, _ivTrip);
     }
 
-    public static string DecryptTripleDES(string p)
+    public static string DecryptTripleDES(string cipherTextBytes)
     {
-        return BTS2.ConvertFromBytesToUtf8(DecryptTripleDES(BTS2.ConvertFromUtf8ToBytes(p)));
+        return BTS2.ConvertFromBytesToUtf8(DecryptTripleDES(BTS2.ConvertFromUtf8ToBytes(cipherTextBytes)));
     }
 }

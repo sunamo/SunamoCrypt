@@ -1,12 +1,10 @@
 namespace SunamoCrypt;
 
-// EN: Variable names have been checked and replaced with self-descriptive names
-// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
 public partial class CryptHelper2
 {
-    public static List<byte> DecryptRijndael(List<byte> plainTextBytes)
+    public static List<byte> DecryptRijndael(List<byte> cipherTextBytes)
     {
-        return DecryptRijndael(plainTextBytes, _pp, _s16, _ivRijn);
+        return DecryptRijndael(cipherTextBytes, _pp, _s16, _ivRijn);
     }
 
     /// <summary>
@@ -19,14 +17,14 @@ public partial class CryptHelper2
         return BTS2.ConvertFromBytesToUtf8(DecryptRijndael(BTS2.ClearEndingsBytes(BTS2.ConvertFromUtf8ToBytes(plainText)), _pp, salt, _ivRijn));
     }
 
-    public static List<byte> DecryptRijndael(List<byte> plainTextBytes, List<byte> salt)
+    public static List<byte> DecryptRijndael(List<byte> cipherTextBytes, List<byte> salt)
     {
-        return DecryptRijndael(plainTextBytes, _pp, salt, _ivRijn);
+        return DecryptRijndael(cipherTextBytes, _pp, salt, _ivRijn);
     }
 
-    public static string DecryptRijndael(string p)
+    public static string DecryptRijndael(string text)
     {
-        return BTS2.ConvertFromBytesToUtf8(DecryptRijndael(BTS2.ConvertFromUtf8ToBytes(p)));
+        return BTS2.ConvertFromBytesToUtf8(DecryptRijndael(BTS2.ConvertFromUtf8ToBytes(text)));
     }
 
     public static List<byte> EncryptRijndael(List<byte> plainTextBytes, List<byte> salt)
@@ -39,9 +37,9 @@ public partial class CryptHelper2
         return EncryptRijndael(plainTextBytes, _pp, _s16, _ivRijn);
     }
 
-    public static string EncryptRijndael(string p)
+    public static string EncryptRijndael(string text)
     {
-        return BTS2.ConvertFromBytesToUtf8(EncryptRijndael(BTS2.ConvertFromUtf8ToBytes(p)));
+        return BTS2.ConvertFromBytesToUtf8(EncryptRijndael(BTS2.ConvertFromUtf8ToBytes(text)));
     }
 
     public static List<byte> EncryptRC2(List<byte> plainTextBytes)
@@ -49,9 +47,9 @@ public partial class CryptHelper2
         return EncryptRC2(plainTextBytes, _pp, _s16, _ivRc2);
     }
 
-    public static string EncryptRC2(string p)
+    public static string EncryptRC2(string text)
     {
-        return BTS2.ConvertFromBytesToUtf8(EncryptRC2(BTS2.ConvertFromUtf8ToBytes(p)));
+        return BTS2.ConvertFromBytesToUtf8(EncryptRC2(BTS2.ConvertFromUtf8ToBytes(text)));
     }
 
     public static List<byte> EncryptRC2(List<byte> plainTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
@@ -81,14 +79,14 @@ public partial class CryptHelper2
         return cipherTextBytes;
     }
 
-    public static List<byte> DecryptRC2(List<byte> plainTextBytes)
+    public static List<byte> DecryptRC2(List<byte> cipherTextBytes)
     {
-        return DecryptRC2(plainTextBytes, _pp, _s16, _ivRc2);
+        return DecryptRC2(cipherTextBytes, _pp, _s16, _ivRc2);
     }
 
-    public static string DecryptRC2(string p)
+    public static string DecryptRC2(string text)
     {
-        return BTS2.ConvertFromBytesToUtf8(DecryptRC2(BTS2.ConvertFromUtf8ToBytes(p)));
+        return BTS2.ConvertFromBytesToUtf8(DecryptRC2(BTS2.ConvertFromUtf8ToBytes(text)));
     }
 
     public static List<byte> DecryptRC2(List<byte> cipherTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)

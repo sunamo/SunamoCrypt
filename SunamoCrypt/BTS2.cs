@@ -2,40 +2,40 @@ namespace SunamoCrypt;
 
 public class BTS2
 {
-    public static List<byte> ConvertFromUtf8ToBytes(string vstup)
+    public static List<byte> ConvertFromUtf8ToBytes(string text)
     {
-        return Encoding.UTF8.GetBytes(vstup).ToList();
+        return Encoding.UTF8.GetBytes(text).ToList();
     }
 
-    public static string ConvertFromBytesToUtf8(List<byte> bajty)
+    public static string ConvertFromBytesToUtf8(List<byte> bytes)
     {
-        //NH.RemoveEndingZeroPadding(bajty);
-        return Encoding.UTF8.GetString(bajty.ToArray());
+        //NH.RemoveEndingZeroPadding(bytes);
+        return Encoding.UTF8.GetString(bytes.ToArray());
     }
 
-    public static List<byte> ClearEndingsBytes(List<byte> plainTextBytes)
+    public static List<byte> ClearEndingsBytes(List<byte> bytes)
     {
-        var bytes = new List<byte>();
-        var pridavat = false;
-        for (var i = plainTextBytes.Count - 1; i >= 0; i--)
-            if (!pridavat && plainTextBytes[i] != 0)
+        var result = new List<byte>();
+        var shouldAdd = false;
+        for (var i = bytes.Count - 1; i >= 0; i--)
+            if (!shouldAdd && bytes[i] != 0)
             {
-                pridavat = true;
-                var pridat = plainTextBytes[i];
-                bytes.Insert(0, pridat);
+                shouldAdd = true;
+                var currentByte = bytes[i];
+                result.Insert(0, currentByte);
             }
-            else if (pridavat)
+            else if (shouldAdd)
             {
-                var pridat = plainTextBytes[i];
-                bytes.Insert(0, pridat);
+                var currentByte = bytes[i];
+                result.Insert(0, currentByte);
             }
 
-        if (bytes.Count == 0)
+        if (result.Count == 0)
         {
-            for (var i = 0; i < plainTextBytes.Count; i++) plainTextBytes[i] = 0;
-            return plainTextBytes;
+            for (var i = 0; i < bytes.Count; i++) bytes[i] = 0;
+            return bytes;
         }
 
-        return bytes;
+        return result;
     }
 }

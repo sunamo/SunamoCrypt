@@ -39,12 +39,12 @@ bool fillAlsoFirstTwo = true)
     }
     internal static void TypeAndMethodName(string lines, out string type, out string methodName)
     {
-        var s2 = lines.Split("at ")[1].Trim();
-        var text = s2.Split("(")[0];
-        var parameter = text.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-        methodName = parameter[^1];
-        parameter.RemoveAt(parameter.Count - 1);
-        type = string.Join(".", parameter);
+        var atPart = lines.Split("at ")[1].Trim();
+        var fullMethodPath = atPart.Split("(")[0];
+        var pathSegments = fullMethodPath.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        methodName = pathSegments[^1];
+        pathSegments.RemoveAt(pathSegments.Count - 1);
+        type = string.Join(".", pathSegments);
     }
     internal static string CallingMethod(int value = 1)
     {
@@ -60,8 +60,8 @@ bool fillAlsoFirstTwo = true)
     #endregion
 
     #region IsNullOrWhitespace
-    readonly static StringBuilder sbAdditionalInfoInner = new();
-    readonly static StringBuilder sbAdditionalInfo = new();
+    internal readonly static StringBuilder AdditionalInfoInnerStringBuilder = new();
+    internal readonly static StringBuilder AdditionalInfoStringBuilder = new();
     #endregion
     internal static string? NotImplementedCase(string before, object notImplementedName)
     {
