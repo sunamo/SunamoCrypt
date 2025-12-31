@@ -86,7 +86,7 @@ public partial class CryptHelper2
             hasLastBlock = true;
         }
 
-        var vr = new List<byte>();
+        var result = new List<byte>();
         for (var blockIndex = 0; blockIndex <= blockCount - 1; blockIndex++)
         {
             var thisBlockLength = 0;
@@ -100,29 +100,29 @@ public partial class CryptHelper2
             var currentBlock = new List<byte>(thisBlockLength);
             Array.Copy(plainTextBytes.ToArray(), startChar, currentBlock.ToArray(), 0, thisBlockLength);
             var encryptedBlock = rsa.Encrypt(currentBlock.ToArray(), s_OAEP).ToList();
-            vr.AddRange(encryptedBlock);
+            result.AddRange(encryptedBlock);
         }
 
         rsa.Clear();
-        return vr;
+        return result;
     //return rsa.Encrypt(plainTextBytesBytes, false);
     }
 
     public static RSAParameters GetRSAParametersFromXml(string xmlFilePath)
     {
         var rp = new RSAParameters();
-        var xd = new XmlDocument();
-        xd.Load(xmlFilePath);
+        var xmlDocument = new XmlDocument();
+        xmlDocument.Load(xmlFilePath);
         // Je lepší to číst v Ascii protože to bude po jednom bytu číst
         var kod = Encoding.UTF8;
-        rp.D = Convert.FromBase64String(xd.SelectSingleNode("RSAKeyValue/D").InnerText);
-        rp.DP = Convert.FromBase64String(xd.SelectSingleNode("RSAKeyValue/DP").InnerText);
-        rp.DQ = Convert.FromBase64String(xd.SelectSingleNode("RSAKeyValue/DQ").InnerText);
-        rp.Exponent = Convert.FromBase64String(xd.SelectSingleNode("RSAKeyValue/Exponent").InnerText);
-        rp.InverseQ = Convert.FromBase64String(xd.SelectSingleNode("RSAKeyValue/InverseQ").InnerText);
-        rp.Modulus = Convert.FromBase64String(xd.SelectSingleNode("RSAKeyValue/Modulus").InnerText);
-        rp.P = Convert.FromBase64String(xd.SelectSingleNode("RSAKeyValue/P").InnerText);
-        rp.Q = Convert.FromBase64String(xd.SelectSingleNode("RSAKeyValue/Q").InnerText);
+        rp.D = Convert.FromBase64String(xmlDocument.SelectSingleNode("RSAKeyValue/D").InnerText);
+        rp.DP = Convert.FromBase64String(xmlDocument.SelectSingleNode("RSAKeyValue/DP").InnerText);
+        rp.DQ = Convert.FromBase64String(xmlDocument.SelectSingleNode("RSAKeyValue/DQ").InnerText);
+        rp.Exponent = Convert.FromBase64String(xmlDocument.SelectSingleNode("RSAKeyValue/Exponent").InnerText);
+        rp.InverseQ = Convert.FromBase64String(xmlDocument.SelectSingleNode("RSAKeyValue/InverseQ").InnerText);
+        rp.Modulus = Convert.FromBase64String(xmlDocument.SelectSingleNode("RSAKeyValue/Modulus").InnerText);
+        rp.P = Convert.FromBase64String(xmlDocument.SelectSingleNode("RSAKeyValue/P").InnerText);
+        rp.Q = Convert.FromBase64String(xmlDocument.SelectSingleNode("RSAKeyValue/Q").InnerText);
         return rp;
     }
 
@@ -147,7 +147,7 @@ public partial class CryptHelper2
             throw new Exception(xEncryptedTextIsAnInvalidLength);
         //Calculate the number of blocks we will have to work on
         var blockCount = cipherTextBytes.Count / RSA_BLOCKSIZE;
-        var vr = new List<byte>();
+        var result = new List<byte>();
         for (var blockIndex = 0; blockIndex < blockCount; blockIndex++)
         {
             var startChar = blockIndex * RSA_BLOCKSIZE;
@@ -155,12 +155,12 @@ public partial class CryptHelper2
             var currentBlockBytes = new List<byte>(RSA_BLOCKSIZE);
             Array.Copy(cipherTextBytes.ToArray(), startChar, currentBlockBytes.ToArray(), 0, RSA_BLOCKSIZE);
             var currentBlockDecrypted = rsa.Decrypt(currentBlockBytes.ToArray(), s_OAEP).ToList();
-            vr.AddRange(currentBlockDecrypted);
+            result.AddRange(currentBlockDecrypted);
         }
 
         //Release all resources held by the RSA service provider
         rsa.Clear();
-        return vr;
+        return result;
     //return rsa.Decrypt(cipherTextBytes, false);
     }
 
