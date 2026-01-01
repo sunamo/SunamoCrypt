@@ -1,7 +1,8 @@
+// variables names: ok
 namespace SunamoCrypt.Enums;
 
 /// <summary>
-/// Provideři symetrického šifrování.
+/// Symmetric encryption providers.
 /// </summary>
 public enum Provider
 {

@@ -10,17 +10,17 @@ internal partial class ThrowEx
     #region Other
     internal static string FullNameOfExecutedCode()
     {
-        Tuple<string, string, string> placeOfExc = Exceptions.PlaceOfException();
-        string f = FullNameOfExecutedCode(placeOfExc.Item1, placeOfExc.Item2, true);
-        return f;
+        Tuple<string, string, string> placeOfException = Exceptions.PlaceOfException();
+        string fullName = FullNameOfExecutedCode(placeOfException.Item1, placeOfException.Item2, true);
+        return fullName;
     }
 
-    static string FullNameOfExecutedCode(object type, string methodName, bool fromThrowEx = false)
+    static string FullNameOfExecutedCode(object type, string methodName, bool isFromThrowEx = false)
     {
         if (methodName == null)
         {
             int depth = 2;
-            if (fromThrowEx)
+            if (isFromThrowEx)
             {
                 depth++;
             }
@@ -28,9 +28,9 @@ internal partial class ThrowEx
             methodName = Exceptions.CallingMethod(depth);
         }
         string typeFullName;
-        if (type is Type type2)
+        if (type is Type typeInstance)
         {
-            typeFullName = type2.FullName ?? "Type cannot be get via type is Type type2";
+            typeFullName = typeInstance.FullName ?? "Type cannot be get via type is Type typeInstance";
         }
         else if (type is MethodBase method)
         {
@@ -49,12 +49,12 @@ internal partial class ThrowEx
         return string.Concat(typeFullName, ".", methodName);
     }
 
-    internal static bool ThrowIsNotNull(string? exception, bool reallyThrow = true)
+    internal static bool ThrowIsNotNull(string? exception, bool isReallyThrowing = true)
     {
         if (exception != null)
         {
             Debugger.Break();
-            if (reallyThrow)
+            if (isReallyThrowing)
             {
                 throw new Exception(exception);
             }
@@ -66,10 +66,10 @@ internal partial class ThrowEx
     #region For avoid FullNameOfExecutedCode
 
 
-    internal static bool ThrowIsNotNull<A>(Func<string, A, string?> f, A ex)
+    internal static bool ThrowIsNotNull<A>(Func<string, A, string?> exceptionFactory, A argument)
     {
-        string? exc = f(FullNameOfExecutedCode(), ex);
-        return ThrowIsNotNull(exc);
+        string? exception = exceptionFactory(FullNameOfExecutedCode(), argument);
+        return ThrowIsNotNull(exception);
     }
 
     #endregion

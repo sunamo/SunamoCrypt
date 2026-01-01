@@ -12,9 +12,9 @@ internal sealed partial class Exceptions
     internal static Tuple<string, string, string> PlaceOfException(
 bool fillAlsoFirstTwo = true)
     {
-        StackTrace st = new();
-        var value = st.ToString();
-        var lines = value.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        StackTrace stackTrace = new();
+        var stackTraceString = stackTrace.ToString();
+        var lines = stackTraceString.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
         lines.RemoveAt(0);
         var i = 0;
         string type = string.Empty;
@@ -37,19 +37,19 @@ bool fillAlsoFirstTwo = true)
         }
         return new Tuple<string, string, string>(type, methodName, string.Join(Environment.NewLine, lines));
     }
-    internal static void TypeAndMethodName(string lines, out string type, out string methodName)
+    internal static void TypeAndMethodName(string stackTraceLine, out string type, out string methodName)
     {
-        var atPart = lines.Split("at ")[1].Trim();
+        var atPart = stackTraceLine.Split("at ")[1].Trim();
         var fullMethodPath = atPart.Split("(")[0];
         var pathSegments = fullMethodPath.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries).ToList();
         methodName = pathSegments[^1];
         pathSegments.RemoveAt(pathSegments.Count - 1);
         type = string.Join(".", pathSegments);
     }
-    internal static string CallingMethod(int value = 1)
+    internal static string CallingMethod(int frameDepth = 1)
     {
         StackTrace stackTrace = new();
-        var methodBase = stackTrace.GetFrame(value)?.GetMethod();
+        var methodBase = stackTrace.GetFrame(frameDepth)?.GetMethod();
         if (methodBase == null)
         {
             return "Method name cannot be get";
@@ -65,16 +65,16 @@ bool fillAlsoFirstTwo = true)
     #endregion
     internal static string? NotImplementedCase(string before, object notImplementedName)
     {
-        var fr = string.Empty;
+        var forClause = string.Empty;
         if (notImplementedName != null)
         {
-            fr = " for ";
+            forClause = " for ";
             if (notImplementedName.GetType() == typeof(Type))
-                fr += ((Type)notImplementedName).FullName;
+                forClause += ((Type)notImplementedName).FullName;
             else
-                fr += notImplementedName.ToString();
+                forClause += notImplementedName.ToString();
         }
-        return CheckBefore(before) + "Not implemented case" + fr + " . internal program error. Please contact developer" +
+        return CheckBefore(before) + "Not implemented case" + forClause + " . internal program error. Please contact developer" +
         ".";
     }
 }

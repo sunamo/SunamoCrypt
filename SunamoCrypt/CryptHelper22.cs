@@ -5,51 +5,25 @@ namespace SunamoCrypt;
 public partial class CryptHelper2
 {
     /// <summary>
-    ///     Encrypts specified plaintext using Rijndael symmetric key algorithm
-    ///     and returns a base64-encoded result.
+    /// Encrypts data using Rijndael symmetric key algorithm
     /// </summary>
-    /// <param name = "plainText">
-    ///     Plaintext value to be encrypted.
-    /// </param>
-    /// <param name = "passPhrase">
-    ///     Passphrase from which a pseudo-random password will be derived. The
-    ///     derived password will be used to generate the encryption key.
-    ///     Passphrase can be any string. In this example we assume that this
-    ///     passphrase is an ASCII string.
-    /// </param>
-    /// <param name = "saltValue">
-    ///     Salt value used along with passphrase to generate password. Salt can
-    ///     be any string. In this example we assume that salt is an ASCII string.
-    /// </param>
-    /// <param name = "hashAlgorithm">
-    ///     Hash algorithm used to generate password. Allowed values are: "MD5" and
-    ///     "A1". SHA1 hashes are a bit slower, but more secure than MD5 hashes.
-    /// </param>
-    /// <param name = "passwordIterations">
-    ///     Number of iterations used to generate password. One or two iterations
-    ///     should be enough.
-    /// </param>
-    /// <param name = "initVector">
-    ///     Initialization vector (or IV). This value is required to encrypt the
-    ///     first block of plaintext data. For RijndaelManaged public class IV must be
-    ///     exactly 16 ASCII characters long.
-    /// </param>
-    /// <param name = "keySize">
-    ///     Size of encryption key in bits. Allowed values are: 128, 192, and 256.
-    ///     Longer keys are more secure than shorter keys.
-    /// </param>
-    /// <returns>
-    ///     Encrypted value formatted as a base64-encoded string.
-    /// </returns>
+    /// <param name="plainTextBytes">Data to encrypt</param>
+    /// <param name="passPhrase">Passphrase for key derivation</param>
+    /// <param name="saltValueBytes">Salt value for key derivation</param>
+    /// <param name="initVectorBytes">Initialization vector</param>
+    /// <returns>Encrypted data</returns>
+    /// <remarks>
+    /// Uses A1 hash algorithm, 128-bit key size, and 2 password iterations (hardcoded internally)
+    /// </remarks>
     public static List<byte> EncryptRijndael(List<byte> plainTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
         var hashAlgorithm = "A1";
         var keySize = 128;
-        var passwordIterations = 2; // Může bý jakékoliv číslo
+        var passwordIterations = 2; // Can be any number
         var password = new PasswordDeriveBytes(passPhrase, saltValueBytes.ToArray(), hashAlgorithm, passwordIterations);
         var keyBytes = new List<byte>(password.GetBytes(keySize / 8));
         // Create uninitialized Rijndael encryption object.
-        var symmetricKey = new RijndaelManaged();
+        var symmetricKey = Aes.Create();
         symmetricKey.Mode = CipherMode.CBC;
         var encryptor = symmetricKey.CreateEncryptor(keyBytes.ToArray(), initVectorBytes.ToArray());
         // Define memory stream which will be used to hold encrypted data.

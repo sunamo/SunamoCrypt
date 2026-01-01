@@ -1,18 +1,36 @@
 namespace SunamoCrypt;
 
+/// <summary>
+/// EN: Byte-Text-String conversion utilities
+/// CZ: Utilita pro konverzi mezi bajty, textem a řetězci
+/// </summary>
 public class BTS2
 {
+    /// <summary>
+    /// Converts UTF-8 string to bytes
+    /// </summary>
+    /// <param name="text">Text to convert</param>
+    /// <returns>List of bytes</returns>
     public static List<byte> ConvertFromUtf8ToBytes(string text)
     {
         return Encoding.UTF8.GetBytes(text).ToList();
     }
 
+    /// <summary>
+    /// Converts bytes to UTF-8 string
+    /// </summary>
+    /// <param name="bytes">Bytes to convert</param>
+    /// <returns>UTF-8 encoded string</returns>
     public static string ConvertFromBytesToUtf8(List<byte> bytes)
     {
-        //NH.RemoveEndingZeroPadding(bytes);
         return Encoding.UTF8.GetString(bytes.ToArray());
     }
 
+    /// <summary>
+    /// Removes trailing zero bytes from the byte list
+    /// </summary>
+    /// <param name="bytes">Byte list to process</param>
+    /// <returns>Byte list without trailing zeros</returns>
     public static List<byte> ClearEndingsBytes(List<byte> bytes)
     {
         var result = new List<byte>();
@@ -21,13 +39,11 @@ public class BTS2
             if (!shouldAdd && bytes[i] != 0)
             {
                 shouldAdd = true;
-                var currentByte = bytes[i];
-                result.Insert(0, currentByte);
+                result.Insert(0, bytes[i]);
             }
             else if (shouldAdd)
             {
-                var currentByte = bytes[i];
-                result.Insert(0, currentByte);
+                result.Insert(0, bytes[i]);
             }
 
         if (result.Count == 0)
