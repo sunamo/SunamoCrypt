@@ -324,10 +324,10 @@ public partial class CryptHelper2
     /// <summary>
     /// Decrypts TripleDES-encrypted text using pre-configured settings
     /// </summary>
-    /// <param name="cipherTextBytes">Encrypted text to decrypt</param>
+    /// <param name="cipherText">Encrypted text to decrypt</param>
     /// <returns>Decrypted text</returns>
-    public static string DecryptTripleDES(string cipherTextBytes)
+    public static string DecryptTripleDES(string cipherText)
     {
-        return BTS2.ConvertFromBytesToUtf8(DecryptTripleDES(BTS2.ConvertFromUtf8ToBytes(cipherTextBytes)));
+        return BTS2.ConvertFromBytesToUtf8(DecryptTripleDES(BTS2.ConvertFromUtf8ToBytes(cipherText)));
     }
 }
