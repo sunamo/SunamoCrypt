@@ -1,3 +1,4 @@
+// variables names: ok
 namespace SunamoCrypt;
 
 public partial class CryptHelper2
