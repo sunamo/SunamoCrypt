@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="SunamoCrypt.Tests\\SunamoCrypt.Tests.csproj" />
+  <Project Path="RunnerCrypt\\RunnerCrypt.csproj" />
+  <Project Path="SunamoCrypt\SunamoCrypt.csproj" />
+</Solution>
