@@ -1,47 +1,20 @@
 namespace SunamoCrypt;
 
-/// <summary>
-/// Cryptographic helper class with various encryption algorithms
-/// </summary>
 public partial class CryptHelper2
 {
-    /// <summary>
-    /// RSA is not suitable for large blocks of data, therefore the maximum block size is 64 bytes
-    /// </summary>
+    // RSA is not suitable for large blocks of data, therefore the maximum block size is 64 bytes
     private const int RsaBlockSize = 64;
     private const int AsymmetricKeySize = 1024;
     private static readonly bool IsOaep = false;
-    /// <summary>
-    /// Error message for invalid encrypted text length
-    /// </summary>
     public static string EncryptedTextIsAnInvalidLength = "EncryptedTextIsAnInvalidLength";
-    /// <summary>
-    /// 16-byte salt for encryption (must be set before using convenience methods)
-    /// </summary>
+    // 16-byte salt for encryption (must be set before using convenience methods)
     public static List<byte>? Salt16 = null;
-    /// <summary>
-    /// Passphrase for encryption (must be set before using convenience methods)
-    /// </summary>
+    // Passphrase for encryption (must be set before using convenience methods)
     public static string? Passphrase = null;
-    /// <summary>
-    /// Initialization vector for Rijndael encryption
-    /// </summary>
     public static List<byte>? InitializationVectorRijndael = null;
-    /// <summary>
-    /// Initialization vector for RC2 encryption
-    /// </summary>
     public static List<byte>? InitializationVectorRc2 = null;
-    /// <summary>
-    /// Initialization vector for TripleDES encryption
-    /// </summary>
     public static List<byte>? InitializationVectorTripleDes = null;
-    /// <summary>
-    /// Encrypts text using RSA algorithm
-    /// </summary>
-    /// <param name="text">Text to encrypt</param>
-    /// <param name="keySize">RSA key size in bits</param>
-    /// <param name="xmlString">XML string containing RSA key</param>
-    /// <returns>Encrypted text as base64 string</returns>
+
     public static string EncryptRSA(string text, int keySize, string xmlString)
     {
         // TODO: Add Proper Exception Handlers
@@ -65,13 +38,6 @@ public partial class CryptHelper2
         return stringBuilder.ToString();
     }
 
-    /// <summary>
-    /// Decrypts RSA-encrypted text
-    /// </summary>
-    /// <param name="text">Encrypted text to decrypt</param>
-    /// <param name="keySize">RSA key size in bits</param>
-    /// <param name="xmlString">XML string containing RSA key</param>
-    /// <returns>Decrypted text</returns>
     public static string DecryptRSA(string text, int keySize, string xmlString)
     {
         // TODO: Add Proper Exception Handlers
@@ -90,30 +56,17 @@ public partial class CryptHelper2
         return null!;
     }
 
-    /// <summary>
-    /// Encrypts data using RSA algorithm
-    /// </summary>
-    /// <param name="plainTextBytes">Data to encrypt</param>
-    /// <param name="xmlKeyFile">Path to XML file containing RSA key</param>
-    /// <param name="keySize">RSA key size in bits</param>
-    /// <returns>Encrypted data</returns>
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
     public static
-#if ASYNC
         async Task<List<byte>>
-#else
-    List<byte>
-#endif
     EncryptRSA(List<byte> plainTextBytes, string xmlKeyFile, int keySize)
     {
         //CspParameters csp = new CspParameters();
         var rsa = new RSACryptoServiceProvider(keySize, GetCspParameters(true));
         rsa.PersistKeyInCsp = false;
         rsa.FromXmlString(
-#if ASYNC
-            await
-#endif
-        File.ReadAllTextAsync(xmlKeyFile));
+            await FileAsync.ReadAllTextAsync(xmlKeyFile)
+        );
         //int nt = rsa.ExportParameters(true).Modulus.Count;
         var lastBlockLength = plainTextBytes.Count % RsaBlockSize;
         decimal blockCountDecimal = plainTextBytes.Count / RsaBlockSize;
@@ -148,11 +101,6 @@ public partial class CryptHelper2
     //return rsa.Encrypt(plainTextBytesBytes, false);
     }
 
-    /// <summary>
-    /// Loads RSA parameters from XML file
-    /// </summary>
-    /// <param name="xmlFilePath">Path to XML file containing RSA parameters</param>
-    /// <returns>RSA parameters</returns>
     public static RSAParameters GetRSAParametersFromXml(string xmlFilePath)
     {
         var rsaParameters = new RSAParameters();
@@ -170,29 +118,16 @@ public partial class CryptHelper2
     }
 
     // TODO: Enable export to key container and extract from it if needed.
-    /// <summary>
-    /// Decrypts RSA-encrypted data
-    /// </summary>
-    /// <param name="cipherTextBytes">Encrypted data to decrypt</param>
-    /// <param name="xmlKeyFile">Path to XML file containing RSA key</param>
-    /// <param name="keySize">RSA key size in bits</param>
-    /// <returns>Decrypted data</returns>
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
     public static
-#if ASYNC
         async Task<List<byte>>
-#else
-    List<byte>
-#endif
     DecryptRSA(List<byte> cipherTextBytes, string xmlKeyFile, int keySize)
     {
         var rsa = new RSACryptoServiceProvider(keySize, GetCspParameters(false));
         rsa.PersistKeyInCsp = false;
         rsa.FromXmlString(
-#if ASYNC
-            await
-#endif
-        File.ReadAllTextAsync(xmlKeyFile));
+            await FileAsync.ReadAllTextAsync(xmlKeyFile)
+        );
         //bool b = rsa.PublicOnly;
         if (cipherTextBytes.Count % RsaBlockSize != 0)
             throw new Exception(EncryptedTextIsAnInvalidLength);
@@ -224,14 +159,6 @@ public partial class CryptHelper2
         return csp;
     }
 
-    /// <summary>
-    /// Encrypts data using TripleDES algorithm
-    /// </summary>
-    /// <param name="plainTextBytes">Data to encrypt</param>
-    /// <param name="passPhrase">Passphrase for key derivation</param>
-    /// <param name="saltValueBytes">Salt value for key derivation</param>
-    /// <param name="initVectorBytes">Initialization vector</param>
-    /// <returns>Encrypted data</returns>
     public static List<byte> EncryptTripleDES(List<byte> plainTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
         var hashAlgorithm = "A1";
@@ -259,34 +186,16 @@ public partial class CryptHelper2
         return cipherTextBytes;
     }
 
-    /// <summary>
-    /// Encrypts data using TripleDES with pre-configured settings
-    /// </summary>
-    /// <param name="plainTextBytes">Data to encrypt</param>
-    /// <returns>Encrypted data</returns>
     public static List<byte> EncryptTripleDES(List<byte> plainTextBytes)
     {
         return EncryptTripleDES(plainTextBytes, Passphrase!, Salt16!, InitializationVectorTripleDes!);
     }
 
-    /// <summary>
-    /// Encrypts text using TripleDES with pre-configured settings
-    /// </summary>
-    /// <param name="text">Text to encrypt</param>
-    /// <returns>Encrypted text</returns>
     public static string EncryptTripleDES(string text)
     {
         return BTS2.ConvertFromBytesToUtf8(EncryptTripleDES(BTS2.ConvertFromUtf8ToBytes(text)));
     }
 
-    /// <summary>
-    /// Decrypts TripleDES-encrypted data
-    /// </summary>
-    /// <param name="cipherTextBytes">Encrypted data to decrypt</param>
-    /// <param name="passPhrase">Passphrase for key derivation</param>
-    /// <param name="saltValueBytes">Salt value for key derivation</param>
-    /// <param name="initVectorBytes">Initialization vector</param>
-    /// <returns>Decrypted data</returns>
     public static List<byte> DecryptTripleDES(List<byte> cipherTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
         var hashAlgorithm = "A1";
@@ -304,28 +213,18 @@ public partial class CryptHelper2
         var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
         var plainTextBytes = new List<byte>(cipherTextBytes.Count);
         // Start decrypting.
-        var decryptedByteCount = cryptoStream.Read(plainTextBytes.ToArray(), 0, plainTextBytes.Count);
+        _ = cryptoStream.Read(plainTextBytes.ToArray(), 0, plainTextBytes.Count);
         // Close both streams.
         memoryStream.Close();
         cryptoStream.Close();
         return plainTextBytes;
     }
 
-    /// <summary>
-    /// Decrypts TripleDES-encrypted data using pre-configured settings
-    /// </summary>
-    /// <param name="cipherTextBytes">Encrypted data to decrypt</param>
-    /// <returns>Decrypted data</returns>
     public static List<byte> DecryptTripleDES(List<byte> cipherTextBytes)
     {
         return DecryptTripleDES(cipherTextBytes, Passphrase!, Salt16!, InitializationVectorTripleDes!);
     }
 
-    /// <summary>
-    /// Decrypts TripleDES-encrypted text using pre-configured settings
-    /// </summary>
-    /// <param name="cipherText">Encrypted text to decrypt</param>
-    /// <returns>Decrypted text</returns>
     public static string DecryptTripleDES(string cipherText)
     {
         return BTS2.ConvertFromBytesToUtf8(DecryptTripleDES(BTS2.ConvertFromUtf8ToBytes(cipherText)));

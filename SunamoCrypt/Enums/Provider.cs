@@ -1,24 +1,14 @@
 namespace SunamoCrypt.Enums;
 
-/// <summary>
-/// Symmetric encryption providers.
-/// </summary>
+// Symmetric encryption providers.
 public enum Provider
 {
-    /// <summary>
-    /// The Data Encryption Standard provider supports a 64 bit key only
-    /// </summary>
+    // The Data Encryption Standard provider supports a 64 bit key only
     DES,
-    /// <summary>
-    /// The Rivest Cipher 2 provider supports keys ranging from 40 to 128 bits, default is 128 bits
-    /// </summary>
+    // The Rivest Cipher 2 provider supports keys ranging from 40 to 128 bits, default is 128 bits
     RC2,
-    /// <summary>
-    /// The Rijndael (also known as AES) provider supports keys of 128, 192, or 256 bits with a default of 256 bits
-    /// </summary>
+    // The Rijndael (also known as AES) provider supports keys of 128, 192, or 256 bits with a default of 256 bits
     Rijndael,
-    /// <summary>
-    /// The TripleDES provider (also known as 3DES) supports keys of 128 or 192 bits with a default of 192 bits
-    /// </summary>
+    // The TripleDES provider (also known as 3DES) supports keys of 128 or 192 bits with a default of 192 bits
     TripleDES
 }
