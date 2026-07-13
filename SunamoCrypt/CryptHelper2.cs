@@ -1,4 +1,4 @@
-namespace SunamoCrypt;
+﻿namespace SunamoCrypt;
 
 public partial class CryptHelper2
 {
@@ -161,7 +161,7 @@ public partial class CryptHelper2
 
     public static List<byte> EncryptTripleDES(List<byte> plainTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
-        var hashAlgorithm = "A1";
+        var hashAlgorithm = "SHA1";
         var keySize = 128;
         var passwordIterations = 2; // Can be any number
         var password = new PasswordDeriveBytes(passPhrase, saltValueBytes.ToArray(), hashAlgorithm, passwordIterations);
@@ -198,7 +198,7 @@ public partial class CryptHelper2
 
     public static List<byte> DecryptTripleDES(List<byte> cipherTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
-        var hashAlgorithm = "A1";
+        var hashAlgorithm = "SHA1";
         var keySize = 128;
         var passwordIterations = 2; // Can be any number
         var password = new PasswordDeriveBytes(passPhrase, saltValueBytes.ToArray(), hashAlgorithm, passwordIterations);
