@@ -1,23 +1,13 @@
-namespace SunamoCrypt;
+﻿namespace SunamoCrypt;
 
 // EN: Variable names have been checked and replaced with self-descriptive names
-// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
+// CZ: Nazvy promennych byly zkontrolovany a nahrazeny samopopisnymi nazvy
 public partial class CryptHelper2
 {
-    /// <summary>
-    /// Encrypts data using Rijndael symmetric key algorithm
-    /// </summary>
-    /// <param name="plainTextBytes">Data to encrypt</param>
-    /// <param name="passPhrase">Passphrase for key derivation</param>
-    /// <param name="saltValueBytes">Salt value for key derivation</param>
-    /// <param name="initVectorBytes">Initialization vector</param>
-    /// <returns>Encrypted data</returns>
-    /// <remarks>
-    /// Uses A1 hash algorithm, 128-bit key size, and 2 password iterations (hardcoded internally)
-    /// </remarks>
+    // Uses A1 hash algorithm, 128-bit key size, and 2 password iterations (hardcoded internally)
     public static List<byte> EncryptRijndael(List<byte> plainTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
-        var hashAlgorithm = "A1";
+        var hashAlgorithm = "SHA1";
         var keySize = 128;
         var passwordIterations = 2; // Can be any number
         var password = new PasswordDeriveBytes(passPhrase, saltValueBytes.ToArray(), hashAlgorithm, passwordIterations);
