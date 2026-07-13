@@ -1,4 +1,4 @@
-namespace SunamoCrypt;
+﻿namespace SunamoCrypt;
 
 public partial class CryptHelper2
 {
@@ -49,7 +49,7 @@ public partial class CryptHelper2
 
     public static List<byte> EncryptRC2(List<byte> plainTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
-        var hashAlgorithm = "A1";
+        var hashAlgorithm = "SHA1";
         var keySize = 128;
         var passwordIterations = 2; // Can be any number
         var password = new PasswordDeriveBytes(passPhrase, saltValueBytes.ToArray(), hashAlgorithm, passwordIterations);
@@ -86,7 +86,7 @@ public partial class CryptHelper2
 
     public static List<byte> DecryptRC2(List<byte> cipherTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
-        var hashAlgorithm = "A1";
+        var hashAlgorithm = "SHA1";
         var keySize = 128;
         var passwordIterations = 2; // Can be any number
         var password = new PasswordDeriveBytes(passPhrase, saltValueBytes.ToArray(), hashAlgorithm, passwordIterations);
@@ -114,7 +114,7 @@ public partial class CryptHelper2
     {
         if (cipherTextBytes.Count == 0)
             return new List<byte>();
-        var hashAlgorithm = "A1";
+        var hashAlgorithm = "SHA1";
         var keySize = 128;
         var passwordIterations = 2; // Can be any number
 

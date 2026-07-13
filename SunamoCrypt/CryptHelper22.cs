@@ -1,4 +1,4 @@
-namespace SunamoCrypt;
+﻿namespace SunamoCrypt;
 
 // EN: Variable names have been checked and replaced with self-descriptive names
 // CZ: Nazvy promennych byly zkontrolovany a nahrazeny samopopisnymi nazvy
@@ -7,7 +7,7 @@ public partial class CryptHelper2
     // Uses A1 hash algorithm, 128-bit key size, and 2 password iterations (hardcoded internally)
     public static List<byte> EncryptRijndael(List<byte> plainTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
-        var hashAlgorithm = "A1";
+        var hashAlgorithm = "SHA1";
         var keySize = 128;
         var passwordIterations = 2; // Can be any number
         var password = new PasswordDeriveBytes(passPhrase, saltValueBytes.ToArray(), hashAlgorithm, passwordIterations);
