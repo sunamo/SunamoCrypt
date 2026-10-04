@@ -1,5 +1,10 @@
 # SunamoCrypt
 
+## Short description
+
+Šifrování pomocí různých algoritmů, například Rijndael a Triple DES.
+
+
 Crypting with various crypting algorithms (Rijndael, Triple DES etc.)
 
 ## Overview
