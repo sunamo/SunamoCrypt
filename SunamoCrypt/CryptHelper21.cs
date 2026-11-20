@@ -2,51 +2,107 @@
 
 public partial class CryptHelper2
 {
+    /// <summary>
+    /// Decrypt rijndael.
+    /// </summary>
+    /// <param name="cipherTextBytes">The cipher text bytes.</param>
+    /// <returns>The decrypt rijndael result.</returns>
     public static List<byte> DecryptRijndael(List<byte> cipherTextBytes)
     {
         return DecryptRijndael(cipherTextBytes, Passphrase!, Salt16!, InitializationVectorRijndael!);
     }
 
+    /// <summary>
+    /// Decrypt rijndael.
+    /// </summary>
+    /// <param name="plainText">The plain text.</param>
+    /// <param name="salt">The salt.</param>
+    /// <returns>The decrypt rijndael result.</returns>
     public static string DecryptRijndael(string plainText, List<byte> salt)
     {
         return BTS2.ConvertFromBytesToUtf8(DecryptRijndael(BTS2.ClearEndingsBytes(BTS2.ConvertFromUtf8ToBytes(plainText)), Passphrase!, salt, InitializationVectorRijndael!));
     }
 
+    /// <summary>
+    /// Decrypt rijndael.
+    /// </summary>
+    /// <param name="cipherTextBytes">The cipher text bytes.</param>
+    /// <param name="salt">The salt.</param>
+    /// <returns>The decrypt rijndael result.</returns>
     public static List<byte> DecryptRijndael(List<byte> cipherTextBytes, List<byte> salt)
     {
         return DecryptRijndael(cipherTextBytes, Passphrase!, salt, InitializationVectorRijndael!);
     }
 
+    /// <summary>
+    /// Decrypt rijndael.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <returns>The decrypt rijndael result.</returns>
     public static string DecryptRijndael(string text)
     {
         return BTS2.ConvertFromBytesToUtf8(DecryptRijndael(BTS2.ConvertFromUtf8ToBytes(text)));
     }
 
+    /// <summary>
+    /// Encrypt rijndael.
+    /// </summary>
+    /// <param name="plainTextBytes">The plain text bytes.</param>
+    /// <param name="salt">The salt.</param>
+    /// <returns>The encrypt rijndael result.</returns>
     public static List<byte> EncryptRijndael(List<byte> plainTextBytes, List<byte> salt)
     {
         return EncryptRijndael(plainTextBytes, Passphrase!, salt, InitializationVectorRijndael!);
     }
 
+    /// <summary>
+    /// Encrypt rijndael.
+    /// </summary>
+    /// <param name="plainTextBytes">The plain text bytes.</param>
+    /// <returns>The encrypt rijndael result.</returns>
     public static List<byte> EncryptRijndael(List<byte> plainTextBytes)
     {
         return EncryptRijndael(plainTextBytes, Passphrase!, Salt16!, InitializationVectorRijndael!);
     }
 
+    /// <summary>
+    /// Encrypt rijndael.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <returns>The encrypt rijndael result.</returns>
     public static string EncryptRijndael(string text)
     {
         return BTS2.ConvertFromBytesToUtf8(EncryptRijndael(BTS2.ConvertFromUtf8ToBytes(text)));
     }
 
+    /// <summary>
+    /// Encrypt RC 2.
+    /// </summary>
+    /// <param name="plainTextBytes">The plain text bytes.</param>
+    /// <returns>The encrypt RC 2 result.</returns>
     public static List<byte> EncryptRC2(List<byte> plainTextBytes)
     {
         return EncryptRC2(plainTextBytes, Passphrase!, Salt16!, InitializationVectorRc2!);
     }
 
+    /// <summary>
+    /// Encrypt RC 2.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <returns>The encrypt RC 2 result.</returns>
     public static string EncryptRC2(string text)
     {
         return BTS2.ConvertFromBytesToUtf8(EncryptRC2(BTS2.ConvertFromUtf8ToBytes(text)));
     }
 
+    /// <summary>
+    /// Encrypt RC 2.
+    /// </summary>
+    /// <param name="plainTextBytes">The plain text bytes.</param>
+    /// <param name="passPhrase">The pass phrase.</param>
+    /// <param name="saltValueBytes">The salt value bytes.</param>
+    /// <param name="initVectorBytes">The init vector bytes.</param>
+    /// <returns>The encrypt RC 2 result.</returns>
     public static List<byte> EncryptRC2(List<byte> plainTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
         var hashAlgorithm = "SHA1";
@@ -74,16 +130,34 @@ public partial class CryptHelper2
         return cipherTextBytes;
     }
 
+    /// <summary>
+    /// Decrypt RC 2.
+    /// </summary>
+    /// <param name="cipherTextBytes">The cipher text bytes.</param>
+    /// <returns>The decrypt RC 2 result.</returns>
     public static List<byte> DecryptRC2(List<byte> cipherTextBytes)
     {
         return DecryptRC2(cipherTextBytes, Passphrase!, Salt16!, InitializationVectorRc2!);
     }
 
+    /// <summary>
+    /// Decrypt RC 2.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <returns>The decrypt RC 2 result.</returns>
     public static string DecryptRC2(string text)
     {
         return BTS2.ConvertFromBytesToUtf8(DecryptRC2(BTS2.ConvertFromUtf8ToBytes(text)));
     }
 
+    /// <summary>
+    /// Decrypt RC 2.
+    /// </summary>
+    /// <param name="cipherTextBytes">The cipher text bytes.</param>
+    /// <param name="passPhrase">The pass phrase.</param>
+    /// <param name="saltValueBytes">The salt value bytes.</param>
+    /// <param name="initVectorBytes">The init vector bytes.</param>
+    /// <returns>The decrypt RC 2 result.</returns>
     public static List<byte> DecryptRC2(List<byte> cipherTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
         var hashAlgorithm = "SHA1";
@@ -110,6 +184,14 @@ public partial class CryptHelper2
 
     // Uses A1 hash algorithm, 128-bit key size, and 2 password iterations (hardcoded internally).
     // All parameters must match those used during encryption.
+    /// <summary>
+    /// Decrypt rijndael.
+    /// </summary>
+    /// <param name="cipherTextBytes">The cipher text bytes.</param>
+    /// <param name="passPhrase">The pass phrase.</param>
+    /// <param name="saltValueBytes">The salt value bytes.</param>
+    /// <param name="initVectorBytes">The init vector bytes.</param>
+    /// <returns>The decrypt rijndael result.</returns>
     public static List<byte> DecryptRijndael(List<byte> cipherTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
         if (cipherTextBytes.Count == 0)

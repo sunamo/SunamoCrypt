@@ -1,20 +1,46 @@
 ﻿namespace SunamoCrypt;
 
+/// <summary>
+/// Represents the crypt helper 2 type.
+/// </summary>
 public partial class CryptHelper2
 {
     // RSA is not suitable for large blocks of data, therefore the maximum block size is 64 bytes
     private const int RsaBlockSize = 64;
     private const int AsymmetricKeySize = 1024;
     private static readonly bool IsOaep = false;
+    /// <summary>
+    /// The encrypted text is an invalid length.
+    /// </summary>
     public static string EncryptedTextIsAnInvalidLength = "EncryptedTextIsAnInvalidLength";
     // 16-byte salt for encryption (must be set before using convenience methods)
+    /// <summary>
+    /// The salt 16.
+    /// </summary>
     public static List<byte>? Salt16 = null;
     // Passphrase for encryption (must be set before using convenience methods)
+    /// <summary>
+    /// The passphrase.
+    /// </summary>
     public static string? Passphrase = null;
+    /// <summary>
+    /// The initialization vector rijndael.
+    /// </summary>
     public static List<byte>? InitializationVectorRijndael = null;
+    /// <summary>
+    /// The initialization vector rc 2.
+    /// </summary>
     public static List<byte>? InitializationVectorRc2 = null;
+    /// <summary>
+    /// The initialization vector triple des.
+    /// </summary>
     public static List<byte>? InitializationVectorTripleDes = null;
 
+    /// <summary>
+    /// Encrypt RSA.
+    /// </summary>
+    /// <param name="methods">The methods.</param>
+    /// <returns>The encrypt RSA result.</returns>
     public static string EncryptRSA(string text, int keySize, string xmlString)
     {
         // TODO: Add Proper Exception Handlers
@@ -38,6 +64,11 @@ public partial class CryptHelper2
         return stringBuilder.ToString();
     }
 
+    /// <summary>
+    /// Decrypt RSA.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <returns>The decrypt RSA result.</returns>
     public static string DecryptRSA(string text, int keySize, string xmlString)
     {
         // TODO: Add Proper Exception Handlers
@@ -56,6 +87,13 @@ public partial class CryptHelper2
         return null!;
     }
 
+    /// <summary>
+    /// Encrypt RSA.
+    /// </summary>
+    /// <param name="plainTextBytes">The plain text bytes.</param>
+    /// <param name="xmlKeyFile">The xml key file.</param>
+    /// <param name="keySize">The key size.</param>
+    /// <returns>The encrypt RSA result.</returns>
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
     public static
         async Task<List<byte>>
@@ -98,6 +136,11 @@ public partial class CryptHelper2
         return result;
     }
 
+    /// <summary>
+    /// Get RSA parameters from xml.
+    /// </summary>
+    /// <param name="blockCount">The block count.</param>
+    /// <returns>The get RSA parameters from xml result.</returns>
     public static RSAParameters GetRSAParametersFromXml(string xmlFilePath)
     {
         var rsaParameters = new RSAParameters();
@@ -115,6 +158,13 @@ public partial class CryptHelper2
     }
 
     // TODO: Enable export to key container and extract from it if needed.
+    /// <summary>
+    /// Decrypt RSA.
+    /// </summary>
+    /// <param name="cipherTextBytes">The cipher text bytes.</param>
+    /// <param name="xmlKeyFile">The xml key file.</param>
+    /// <param name="keySize">The key size.</param>
+    /// <returns>The decrypt RSA result.</returns>
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
     public static
         async Task<List<byte>>
@@ -154,6 +204,12 @@ public partial class CryptHelper2
         return csp;
     }
 
+    /// <summary>
+    /// Encrypt triple DES.
+    /// </summary>
+    /// <param name="currentBlockBytes.ToArray()">The current block bytes to array.</param>
+    /// <param name="IsOaep">The is oaep.</param>
+    /// <returns>The encrypt triple DES result.</returns>
     public static List<byte> EncryptTripleDES(List<byte> plainTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
         var hashAlgorithm = "SHA1";
@@ -181,16 +237,33 @@ public partial class CryptHelper2
         return cipherTextBytes;
     }
 
+    /// <summary>
+    /// Encrypt triple DES.
+    /// </summary>
+    /// <param name="keyBytes.ToArray()">The key bytes to array.</param>
+    /// <param name="initVectorBytes.ToArray()">The init vector bytes to array.</param>
+    /// <returns>The encrypt triple DES result.</returns>
     public static List<byte> EncryptTripleDES(List<byte> plainTextBytes)
     {
         return EncryptTripleDES(plainTextBytes, Passphrase!, Salt16!, InitializationVectorTripleDes!);
     }
 
+    /// <summary>
+    /// Encrypt triple DES.
+    /// </summary>
+    /// <param name="memoryStream">The memory stream.</param>
+    /// <param name="encryptor">The encryptor.</param>
+    /// <param name="CryptoStreamMode.Write">The crypto stream mode write.</param>
+    /// <returns>The encrypt triple DES result.</returns>
     public static string EncryptTripleDES(string text)
     {
         return BTS2.ConvertFromBytesToUtf8(EncryptTripleDES(BTS2.ConvertFromUtf8ToBytes(text)));
     }
 
+    /// <summary>
+    /// Decrypt triple DES.
+    /// </summary>
+    /// <returns>The decrypt triple DES result.</returns>
     public static List<byte> DecryptTripleDES(List<byte> cipherTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
         var hashAlgorithm = "SHA1";
@@ -215,11 +288,21 @@ public partial class CryptHelper2
         return plainTextBytes;
     }
 
+    /// <summary>
+    /// Decrypt triple DES.
+    /// </summary>
+    /// <param name="8">The 8.</param>
+    /// <returns>The decrypt triple DES result.</returns>
     public static List<byte> DecryptTripleDES(List<byte> cipherTextBytes)
     {
         return DecryptTripleDES(cipherTextBytes, Passphrase!, Salt16!, InitializationVectorTripleDes!);
     }
 
+    /// <summary>
+    /// Decrypt triple DES.
+    /// </summary>
+    /// <param name="cipherTextBytes.ToArray()">The cipher text bytes to array.</param>
+    /// <returns>The decrypt triple DES result.</returns>
     public static string DecryptTripleDES(string cipherText)
     {
         return BTS2.ConvertFromBytesToUtf8(DecryptTripleDES(BTS2.ConvertFromUtf8ToBytes(cipherText)));

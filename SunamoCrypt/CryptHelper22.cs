@@ -3,6 +3,14 @@
 public partial class CryptHelper2
 {
     // Uses A1 hash algorithm, 128-bit key size, and 2 password iterations (hardcoded internally)
+    /// <summary>
+    /// Encrypt rijndael.
+    /// </summary>
+    /// <param name="plainTextBytes">The plain text bytes.</param>
+    /// <param name="passPhrase">The pass phrase.</param>
+    /// <param name="saltValueBytes">The salt value bytes.</param>
+    /// <param name="initVectorBytes">The init vector bytes.</param>
+    /// <returns>The encrypt rijndael result.</returns>
     public static List<byte> EncryptRijndael(List<byte> plainTextBytes, string passPhrase, List<byte> saltValueBytes, List<byte> initVectorBytes)
     {
         var hashAlgorithm = "SHA1";
