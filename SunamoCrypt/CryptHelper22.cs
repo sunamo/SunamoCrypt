@@ -1,6 +1,5 @@
 ﻿namespace SunamoCrypt;
 
-// Variable names have been checked and replaced with self-descriptive names
 public partial class CryptHelper2
 {
     // Uses A1 hash algorithm, 128-bit key size, and 2 password iterations (hardcoded internally)

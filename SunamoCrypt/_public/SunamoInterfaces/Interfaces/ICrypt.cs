@@ -1,4 +1,3 @@
-// variables names: ok
 namespace SunamoCrypt._public.SunamoInterfaces.Interfaces;
 
 public interface ICrypt

@@ -1,4 +1,3 @@
-// variables names: ok
 namespace SunamoCrypt.Data;
 
 public class CryptData : ICrypt
