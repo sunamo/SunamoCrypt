@@ -11,13 +11,11 @@ public class CryptHelper : ICryptHelper
             case Provider.DES:
                 throw new Exception("DES symmetric encryption is not supported.");
             case Provider.RC2:
-                //crypt = new CryptHelper.RC2();
                 break;
             case Provider.Rijndael:
                 _crypt = new RijndaelBytes();
                 break;
             case Provider.TripleDES:
-                //crypt = new CryptHelper.TripleDES();
                 break;
             default:
                 ThrowEx.NotImplementedCase(provider);

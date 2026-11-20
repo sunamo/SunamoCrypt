@@ -61,13 +61,11 @@ public partial class CryptHelper2
         async Task<List<byte>>
     EncryptRSA(List<byte> plainTextBytes, string xmlKeyFile, int keySize)
     {
-        //CspParameters csp = new CspParameters();
         var rsa = new RSACryptoServiceProvider(keySize, GetCspParameters(true));
         rsa.PersistKeyInCsp = false;
         rsa.FromXmlString(
             await FileAsync.ReadAllTextAsync(xmlKeyFile)
         );
-        //int nt = rsa.ExportParameters(true).Modulus.Count;
         var lastBlockLength = plainTextBytes.Count % RsaBlockSize;
         decimal blockCountDecimal = plainTextBytes.Count / RsaBlockSize;
         var blockCount = (int)Math.Floor(blockCountDecimal);
@@ -98,7 +96,6 @@ public partial class CryptHelper2
 
         rsa.Clear();
         return result;
-    //return rsa.Encrypt(plainTextBytesBytes, false);
     }
 
     public static RSAParameters GetRSAParametersFromXml(string xmlFilePath)
@@ -128,7 +125,6 @@ public partial class CryptHelper2
         rsa.FromXmlString(
             await FileAsync.ReadAllTextAsync(xmlKeyFile)
         );
-        //bool b = rsa.PublicOnly;
         if (cipherTextBytes.Count % RsaBlockSize != 0)
             throw new Exception(EncryptedTextIsAnInvalidLength);
         //Calculate the number of blocks we will have to work on
@@ -147,7 +143,6 @@ public partial class CryptHelper2
         //Release all resources held by the RSA service provider
         rsa.Clear();
         return result;
-    //return rsa.Decrypt(cipherTextBytes, false);
     }
 
 #pragma warning disable

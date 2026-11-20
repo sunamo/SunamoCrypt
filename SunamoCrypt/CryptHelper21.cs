@@ -133,7 +133,6 @@ public partial class CryptHelper2
         // (CBC). Use default options for other symmetric key parameters.
         symmetricKey.Mode = CipherMode.CBC;
         // CFB - remove padding zero, CBC - keep padding zero
-        //symmetricKey.Mode = CipherMode.CFB;
         // Generate decryptor from the existing key bytes and initialization
         // vector. Key size will be defined based on the number of the key
         // bytes.
@@ -143,7 +142,6 @@ public partial class CryptHelper2
         // Define cryptographic stream (always use Read mode for encryption).
         var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
         // Since at this point we don't know what the size of decrypted data
-        // will be, allocate the buffer long enough to hold ciphertext;
         // plaintext is never longer than ciphertext.
         // Here must be byte[], otherwise cryptoStream.Close() throw a exception
         var plainTextBytes = new byte[cipherTextBytes.Count];
